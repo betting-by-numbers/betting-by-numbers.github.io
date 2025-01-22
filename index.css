@@ -1,0 +1,64 @@
+/**
+index.css
+
+NOTE: This file does ~~not~~ contain Tailwind CSS class definitions.
+- Documentation can be found here: https://tailwindcss.com/docs/aspect-ratio (left side bar contains more stuff to look through!)
+- TLDR: Tailwind classes can be represented by this structure -> [CLASS]-[SUBCLASS (opt.)]-[STRENGTH (scales of 100]
+    - This means that "bg-gray-800" translates to CSS as "background: #(hex value of dark gray)"
+    - Similarly, "p-8" translates to CSS as "padding: 32px"
+- Please feel free to use Tailwind if it benefits you, but I will do my best to minimize the use of Tailwind in shared
+  code components to ensure that we all can contribute as needed! Ping me if you need anything at all in regards to Tailwind,
+  it is a very powerful CSS tool to have once you build your CSS fundamentals!
+- If you do not find a class listed in index.html in this file, it is a Tailwind class!
+*/
+
+.index-body {
+  width: auto;
+  height: auto;
+
+  background: #0b1121;
+}
+
+.index-header {
+  height: 75px;
+
+  background: #393f4f;
+}
+
+.index-main {
+  min-height: 645px;
+
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.index-footer {
+  height: 100px;
+
+  background: #393f4f;
+}
+
+/*
+ @media tags 
+ 
+ Media tags allow us to customize CSS based on the device viewing our site! These tags allow for conditional styling,
+ making the viewing difference -responsive- across mobile and larger device screens. When activated, they overwrite
+ parameters of the original class with new values, but parameters that are not specified will REMAIN their original value!
+
+ NOTE: Media tags function as an overwrite to the original class' parameters. Generally, these media tags are structured
+ to update for devices <greater than or equal to> the designated width threshold. For this reason, responsive design styles
+ from the smallest device first, and gradually adjusts itself to fit wider screens!
+ */
+
+// MEDIUM (~768px): Applies to device screens >= 768px
+@media (min-width: 768px) {
+  .index-main {
+    padding-left: 7.5rem;
+    padding-right: 7.5rem;
+  }
+}
+
+// LARGE (~1024px): Applies to device screens >= 1024px
+@media (min-width: 1024px) {
+
+}
