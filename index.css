@@ -9,7 +9,7 @@ NOTE: This file does ~~not~~ contain Tailwind CSS class definitions.
 - Please feel free to use Tailwind if it benefits you, but I will do my best to minimize the use of Tailwind in shared
   code components to ensure that we all can contribute as needed! Ping me if you need anything at all in regards to Tailwind,
   it is a very powerful CSS tool to have once you build your CSS fundamentals!
-- If you do not find a class listed in index.html in this file, it is a Tailwind class!
+- TLDR: If you do not find a class listed in index.html in this file, it is a Tailwind class!
 */
 
 .index-body {
@@ -36,6 +36,37 @@ NOTE: This file does ~~not~~ contain Tailwind CSS class definitions.
   height: 100px;
 
   background: #393f4f;
+}
+
+// Animation for Slides
+
+.slide-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: transform 500ms ease-in-out, opacity 500ms ease-in-out;
+}
+
+.slide.next {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.slide.previous {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.slide.current {
+  transform: translateX(0);
+  opacity: 1;
 }
 
 /*
