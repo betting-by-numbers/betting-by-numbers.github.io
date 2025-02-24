@@ -1,5 +1,8 @@
-# bna-rubber-duckies
-COMM177T Winter 2025 - Carlo, Hannah, Hawe
+# Betting By Numbers
+COMM177T Winter 2025 Project by Carlo, Hannah, Hawe
+
+## Quick Start
+All website materials are stored in the /docs directory.
 
 ## TODO:
 - Document manual data transcription
