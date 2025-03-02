@@ -31,6 +31,7 @@
   <!-- MAIN: Main content of a page will go here -->
   <main class="index-main">
     <p class="text-white text-center">Hello, World! Many great things to come here!</p>
+    
     <!-- @Hannah SECTION: Interactive Chart -->
     <section class="mx-5 my-5">
       <h1 class="text-white text-center">Interactive Chart</h1>
@@ -49,6 +50,27 @@
     
         <script>
             // Gender Chart Specification
+            // TODO: Prepare the gender date using JS (rather than reading
+            // from a JSON file or hard-coding the data)
+            const genderData =  () => {
+            const data = { values: [] };
+            const maleCount = 65;
+            const femaleCount = 35;
+
+            for (let i = 1; i <= maleCount; i++) {
+                data.values.push({ id: i, sex: "male" });
+            }
+
+            for (let i = maleCount + 1; i <= maleCount + femaleCount; i++) {
+                data.values.push({ id: i, sex: "female" });
+            }
+
+            return data;
+        };
+
+        const genderChartData = genderData();
+
+
             const genderSpec = {
                 "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
                 "description": "Gender Distribution",
@@ -77,44 +99,7 @@
                 },
                 "width": 400,
                 "height": 300,
-                "data": {
-                    "values": [
-                        {"id": 1, "sex": "male"}, {"id": 2, "sex": "male"}, {"id": 3, "sex": "male"},
-                        {"id": 4, "sex": "male"}, {"id": 5, "sex": "male"}, {"id": 6, "sex": "male"},
-                        {"id": 7, "sex": "male"}, {"id": 8, "sex": "male"}, {"id": 9, "sex": "male"},
-                        {"id": 10, "sex": "male"}, {"id": 11, "sex": "male"}, {"id": 12, "sex": "male"},
-                        {"id": 13, "sex": "male"}, {"id": 14, "sex": "male"}, {"id": 15, "sex": "male"},
-                        {"id": 16, "sex": "male"}, {"id": 17, "sex": "male"}, {"id": 18, "sex": "male"},
-                        {"id": 19, "sex": "male"}, {"id": 20, "sex": "male"}, {"id": 21, "sex": "male"},
-                        {"id": 22, "sex": "male"}, {"id": 23, "sex": "male"}, {"id": 24, "sex": "male"},
-                        {"id": 25, "sex": "male"}, {"id": 26, "sex": "male"}, {"id": 27, "sex": "male"},
-                        {"id": 28, "sex": "male"}, {"id": 29, "sex": "male"}, {"id": 30, "sex": "male"},
-                        {"id": 31, "sex": "male"}, {"id": 32, "sex": "male"}, {"id": 33, "sex": "male"},
-                        {"id": 34, "sex": "male"}, {"id": 35, "sex": "male"}, {"id": 36, "sex": "male"},
-                        {"id": 37, "sex": "male"}, {"id": 38, "sex": "male"}, {"id": 39, "sex": "male"},
-                        {"id": 40, "sex": "male"}, {"id": 41, "sex": "male"}, {"id": 42, "sex": "male"},
-                        {"id": 43, "sex": "male"}, {"id": 44, "sex": "male"}, {"id": 45, "sex": "male"},
-                        {"id": 46, "sex": "male"}, {"id": 47, "sex": "male"}, {"id": 48, "sex": "male"},
-                        {"id": 49, "sex": "male"}, {"id": 50, "sex": "male"}, {"id": 51, "sex": "male"},
-                        {"id": 52, "sex": "male"}, {"id": 53, "sex": "male"}, {"id": 54, "sex": "male"},
-                        {"id": 55, "sex": "male"}, {"id": 56, "sex": "male"}, {"id": 57, "sex": "male"},
-                        {"id": 58, "sex": "male"}, {"id": 59, "sex": "male"}, {"id": 60, "sex": "male"},
-                        {"id": 61, "sex": "male"}, {"id": 62, "sex": "male"}, {"id": 63, "sex": "male"},
-                        {"id": 64, "sex": "female"}, {"id": 65, "sex": "female"},
-                        {"id": 66, "sex": "female"}, {"id": 67, "sex": "female"}, {"id": 68, "sex": "female"},
-                        {"id": 69, "sex": "female"}, {"id": 70, "sex": "female"}, {"id": 71, "sex": "female"},
-                        {"id": 72, "sex": "female"}, {"id": 73, "sex": "female"}, {"id": 74, "sex": "female"},
-                        {"id": 75, "sex": "female"}, {"id": 76, "sex": "female"}, {"id": 77, "sex": "female"},
-                        {"id": 78, "sex": "female"}, {"id": 79, "sex": "female"}, {"id": 80, "sex": "female"},
-                        {"id": 81, "sex": "female"}, {"id": 82, "sex": "female"}, {"id": 83, "sex": "female"},
-                        {"id": 84, "sex": "female"}, {"id": 85, "sex": "female"}, {"id": 86, "sex": "female"},
-                        {"id": 87, "sex": "female"}, {"id": 88, "sex": "female"}, {"id": 89, "sex": "female"},
-                        {"id": 90, "sex": "female"}, {"id": 91, "sex": "female"}, {"id": 92, "sex": "female"},
-                        {"id": 93, "sex": "female"}, {"id": 94, "sex": "female"}, {"id": 95, "sex": "female"},
-                        {"id": 96, "sex": "female"}, {"id": 97, "sex": "female"}, {"id": 98, "sex": "female"},
-                        {"id": 99, "sex": "female"}, {"id": 100, "sex": "female"}
-                    ]
-                },
+                "data": genderChartData,
                 "transform": [
                     {"calculate": "ceil (datum.id/10)", "as": "col"},
                     {"calculate": "datum.id - datum.col*10", "as": "row"}
@@ -146,6 +131,40 @@
     
     
             // Race Chart Specification
+
+            const raceData =  () => {
+            const data = { values: [] };
+            const whiteCount = 50;
+            const blackCount = 18;
+            const latinoCount = 24; 
+            const asianCount = 5; 
+            const otherCount = 3;
+
+            for (let i = 1; i <= whiteCount; i++) {
+                data.values.push({ id: i, race: "white" });
+            }
+
+            for (let i = blackCount + 1; i <= whiteCount + blackCount; i++) {
+                data.values.push({ id: i, race: "black" });
+            }
+
+            for (let i = latinoCount + 1; i <= whiteCount + blackCount + latinoCount; i++) {
+                data.values.push({ id: i, race: "latino" });
+            }
+
+            for (let i = asianCount + 1; i <= whiteCount + blackCount + latinoCount + asianCount; i++) {
+                data.values.push({ id: i, race: "asian" });
+            }
+
+            for (let i = otherCount + 1; i <= whiteCount + blackCount + latinoCount + asianCount + otherCount; i++) {
+                data.values.push({ id: i, race: "other" });
+            }
+
+            return data;
+        };
+
+        const raceChartData = raceData();
+
             const raceSpec = {
                 "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
                 "description": "Race Distribution",
@@ -174,44 +193,7 @@
                 },
                 "width": 400,
                 "height": 300,
-                "data": {
-                    "values": [
-                        {"id": 1, "race": "white"}, {"id": 2, "race": "white"}, {"id": 3, "race": "white"},
-                        {"id": 4, "race": "white"}, {"id": 5, "race": "white"}, {"id": 6, "race": "white"},
-                        {"id": 7, "race": "white"}, {"id": 8, "race": "white"}, {"id": 9, "race": "white"},
-                        {"id": 10, "race": "white"}, {"id": 11, "race": "white"}, {"id": 12, "race": "white"},
-                        {"id": 13, "race": "white"}, {"id": 14, "race": "white"}, {"id": 15, "race": "white"},
-                        {"id": 16, "race": "white"}, {"id": 17, "race": "white"}, {"id": 18, "race": "white"},
-                        {"id": 19, "race": "white"}, {"id": 20, "race": "white"}, {"id": 21, "race": "white"},
-                        {"id": 22, "race": "white"}, {"id": 23, "race": "white"}, {"id": 24, "race": "white"},
-                        {"id": 25, "race": "white"}, {"id": 26, "race": "white"}, {"id": 27, "race": "white"},
-                        {"id": 28, "race": "white"}, {"id": 29, "race": "white"}, {"id": 30, "race": "white"},
-                        {"id": 31, "race": "white"}, {"id": 32, "race": "white"}, {"id": 33, "race": "white"},
-                        {"id": 34, "race": "white"}, {"id": 35, "race": "white"}, {"id": 36, "race": "white"},
-                        {"id": 37, "race": "white"}, {"id": 38, "race": "white"}, {"id": 39, "race": "white"},
-                        {"id": 40, "race": "white"}, {"id": 41, "race": "white"}, {"id": 42, "race": "white"},
-                        {"id": 43, "race": "white"}, {"id": 44, "race": "white"}, {"id": 45, "race": "white"},
-                        {"id": 46, "race": "white"}, {"id": 47, "race": "white"}, {"id": 48, "race": "white"},
-                        {"id": 49, "race": "white"}, {"id": 50, "race": "white"}, {"id": 51, "race": "white"},
-                        {"id": 52, "race": "white"},
-                        {"id": 53, "race": "black"}, {"id": 54, "race": "black"}, {"id": 55, "race": "black"},
-                        {"id": 56, "race": "black"}, {"id": 57, "race": "black"}, {"id": 58, "race": "black"},
-                        {"id": 59, "race": "black"}, {"id": 60, "race": "black"}, {"id": 61, "race": "black"},
-                        {"id": 62, "race": "black"}, {"id": 63, "race": "black"}, {"id": 64, "race": "black"},
-                        {"id": 65, "race": "black"}, {"id": 66, "race": "black"}, {"id": 67, "race": "black"},
-                        {"id": 68, "race": "black"}, {"id": 69, "race": "black"}, {"id": 70, "race": "black"},
-                        {"id": 71, "race": "latino"}, {"id": 72, "race": "latino"}, {"id": 73, "race": "latino"},
-                        {"id": 74, "race": "latino"}, {"id": 75, "race": "latino"}, {"id": 76, "race": "latino"},
-                        {"id": 77, "race": "latino"}, {"id": 78, "race": "latino"}, {"id": 79, "race": "latino"},
-                        {"id": 80, "race": "latino"}, {"id": 81, "race": "latino"}, {"id": 82, "race": "latino"},
-                        {"id": 83, "race": "latino"}, {"id": 84, "race": "latino"}, {"id": 85, "race": "latino"},
-                        {"id": 86, "race": "latino"}, {"id": 87, "race": "latino"}, {"id": 88, "race": "latino"},
-                        {"id": 89, "race": "latino"}, {"id": 90, "race": "latino"}, {"id": 91, "race": "latino"},
-                        {"id": 92, "race": "latino"}, {"id": 93, "race": "latino"}, {"id": 94, "race": "latino"},
-                        {"id": 95, "race": "asian"}, {"id": 96, "race": "asian"}, {"id": 97, "race": "asian"},
-                        {"id": 98, "race": "asian"}, {"id": 99, "race": "asian"}, {"id": 100, "race": "asian"}
-                    ]
-                },
+                "data":  raceChartData,
                 "transform": [
                     {"calculate": "ceil (datum.id/10)", "as": "col"},
                     {"calculate": "datum.id - datum.col*10", "as": "row"}
@@ -225,8 +207,8 @@
                     },
                     "color": {"field": "race", "type": "nominal",
                         "scale": {
-                            "domain": ["white", "black", "latino", "asian"],
-                            "range": ["	#12436D", "	#28A197", "	#801650", "#A285D1"] // Softer purples
+                            "domain": ["white", "black", "latino", "asian", 'other'],
+                            "range": ["red", "white", "blue", "pink", "grey"] // Softer purples
                         },
                          "legend": {"title": "Race"} // Add a legend title
                     },
@@ -240,7 +222,38 @@
                 },
                 "params": [{"name": "highlight", "select": "interval"}]
             };
+          // Age Chart Specification
+          const ageData =  () => {
+    const data = { values: [] };
+    const youngCount = 46;
+    const midyoungCount = 38;
+    const midoldCount = 11; 
+    const oldCount = 5; 
     
+
+    for (let i = 1; i <= youngCount; i++) {
+        data.values.push({ id: i, age: "18-34" });
+    }
+
+    for (let i = midyoungCount + 1; i <= youngCount + midyoungCount; i++) {
+        data.values.push({ id: i, age: "35-49" });
+    }
+
+    for (let i = midoldCount + 1; i <= youngCount + midyoungCount + midoldCount; i++) {
+        data.values.push({ id: i, age: "50-64" });
+    }
+
+    for (let i = oldCount + 1; i <= youngCount + midyoungCount + midoldCount + oldCount; i++) {
+        data.values.push({ id: i, age: "65+" });
+    }
+
+    
+
+    return data;
+};
+
+const ageChartData = ageData();
+
              const ageSpec = {
                 "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
                 "description": "Age Group Distribution",
@@ -269,42 +282,7 @@
                 },
                 "width": 400,
                 "height": 300,
-                "data": {
-                    "values": [
-                        {"id": 1, "age": "18-34"}, {"id": 2, "age": "18-34"}, {"id": 3, "age": "18-34"},
-                        {"id": 4, "age": "18-34"}, {"id": 5, "age": "18-34"}, {"id": 6, "age": "18-34"},
-                        {"id": 7, "age": "18-34"}, {"id": 8, "age": "18-34"}, {"id": 9, "age": "18-34"},
-                        {"id": 10, "age": "18-34"}, {"id": 11, "age": "18-34"}, {"id": 12, "age": "18-34"},
-                        {"id": 13, "age": "18-34"}, {"id": 14, "age": "18-34"}, {"id": 15, "age": "18-34"},
-                        {"id": 16, "age": "18-34"}, {"id": 17, "age": "18-34"}, {"id": 18, "age": "18-34"},
-                        {"id": 19, "age": "18-34"}, {"id": 20, "age": "18-34"}, {"id": 21, "age": "18-34"},
-                        {"id": 22, "age": "18-34"}, {"id": 23, "age": "18-34"}, {"id": 24, "age": "18-34"},
-                        {"id": 25, "age": "18-34"}, {"id": 26, "age": "18-34"}, {"id": 27, "age": "18-34"},
-                        {"id": 28, "age": "18-34"}, {"id": 29, "age": "18-34"}, {"id": 30, "age": "18-34"},
-                        {"id": 31, "age": "18-34"}, {"id": 32, "age": "18-34"}, {"id": 33, "age": "18-34"},
-                        {"id": 34, "age": "18-34"}, {"id": 35, "age": "18-34"}, {"id": 36, "age": "18-34"},
-                        {"id": 37, "age": "18-34"}, {"id": 38, "age": "18-34"}, {"id": 39, "age": "18-34"},
-                        {"id": 40, "age": "18-34"}, {"id": 41, "age": "18-34"}, {"id": 42, "age": "18-34"},
-                         {"id": 43, "age": "18-34"}, {"id": 44, "age": "18-34"}, {"id": 45, "age": "18-34"},
-                        {"id": 46, "age": "18-34"},
-                        {"id": 47, "age": "35-49"}, {"id": 48, "age": "35-49"}, {"id": 49, "age": "35-49"},
-                        {"id": 50, "age": "35-49"}, {"id": 51, "age": "35-49"}, {"id": 52, "age": "35-49"},
-                        {"id": 53, "age": "35-49"}, {"id": 54, "age": "35-49"}, {"id": 55, "age": "35-49"},
-                        {"id": 56, "age": "35-49"}, {"id": 57, "age": "35-49"}, {"id": 58, "age": "35-49"},
-                        {"id": 59, "age": "35-49"}, {"id": 60, "age": "35-49"}, {"id": 61, "age": "35-49"},
-                        {"id": 62, "age": "35-49"}, {"id": 63, "age": "35-49"}, {"id": 64, "age": "35-49"},
-                        {"id": 65, "age": "35-49"}, {"id": 66, "age": "35-49"}, {"id": 67, "age": "35-49"},
-                        {"id": 68, "age": "35-49"}, {"id": 69, "age": "35-49"}, {"id": 70, "age": "35-49"},
-                        {"id": 71, "age": "35-49"}, {"id": 72, "age": "35-49"}, {"id": 73, "age": "35-49"},
-                         {"id": 74, "age": "35-49"},
-                        {"id": 75, "age": "50-64"}, {"id": 76, "age": "50-64"}, {"id": 77, "age": "50-64"},
-                        {"id": 78, "age": "50-64"}, {"id": 79, "age": "50-64"}, {"id": 80, "age": "50-64"},
-                        {"id": 81, "age": "50-64"}, {"id": 82, "age": "50-64"}, {"id": 83, "age": "50-64"},
-                        {"id": 84, "age": "50-64"}, {"id": 85, "age": "50-64"},
-                        {"id": 86, "age": "65+"}, {"id": 87, "age": "65+"}, {"id": 88, "age": "65+"},
-                        {"id": 89, "age": "65+"}, {"id": 90, "age": "65+"}
-                    ]
-                },
+                "data": ageChartData,
                 "transform": [
                     {"calculate": "ceil (datum.id/10)", "as": "col"},
                     {"calculate": "datum.id - datum.col*10", "as": "row"}
@@ -333,26 +311,174 @@
                 },
                 "params": [{"name": "highlight", "select": "interval"}]
             };
+            //End of Age Chart Specification
+            // Region Chart Specification
+            const regionData =  () => {
+            const data = { values: [] };
+            const northeastCount = 25;
+            const southCount = 33;    
+            const westCount = 22;
+            const midwestCount = 20;
+            for (let i = 1; i <= northeastCount; i++) {
+                data.values.push({ id: i, region: "North" });
+            } 
+            for (let i = northeastCount + 1; i <= northeastCount + southCount; i++) {
+                data.values.push({ id: i, region: "South" });
+            }
+            for (let i = northeastCount + southCount + 1; i <= northeastCount + southCount + westCount; i++) {
+                data.values.push({ id: i, region: "West" });
+            }
+            for (let i = northeastCount + southCount + westCount + 1; i <= northeastCount + southCount + westCount + midwestCount; i++) {
+                data.values.push({ id: i, region: "Midwest" });
+            }
+            return data;
+        };    
+        const regionChartData = regionData();
+            const regionSpec = {
+                "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+                "description": "Age Group Distribution",
+                "config": {
+                  "axis": {
+                    "labelFont": "Arial",
+                    "titleFont": "Arial"
+                  },
+                    "legend": {
+                        "orient": "top",
+                        "title": null,
+                        "labelFont": "Arial",
+                         "symbolType": "circle",
+                         "symbolSize": 70,
+                         "labelColor": "#333",
+                        "padding": 10,
+                        "cornerRadius": 5
+                    },
+                    "view": {"stroke": ""},
+                    "title": {
+                        "font": "Arial",
+                        "fontSize": 16,
+                        "color": "#333",
+                        "anchor": "start"
+                    }
+                },
+                "width": 400,
+                "height": 300,
+                "data": regionChartData,
+                "transform": [
+                    {"calculate": "ceil (datum.id/10)", "as": "col"},
+                    {"calculate": "datum.id - datum.col*10", "as": "row"}
+                ],
+                "mark": {"type": "point", "filled": true},
+                "encoding": {
+                    "x": {"field": "col", "type": "ordinal", "axis": null},
+                    "y": {"field": "row", "type": "ordinal", "axis": null},
+                    "shape": {
+                        "value": "M1.7 -1.7h-0.8c0.3 -0.2 0.6 -0.5 0.6 -0.9c0 -0.6 -0.4 -1 -1 -1c-0.6 0 -1 0.4 -1 1c0 0.4 0.2 0.7 0.6 0.9h-0.8c-0.4 0 -0.7 0.3 -0.7 0.6v1.9c0 0.3 0.3 0.6 0.6 0.6h0.2c0 0 0 0.1 0 0.1v1.9c0 0.3 0.2 0.6 0.3 0.6h1.3c0.2 0 0.3 -0.3 0.3 -0.6v-1.8c0 0 0 -0.1 0 -0.1h0.2c0.3 0 0.6 -0.3 0.6 -0.6v-2c0.2 -0.3 -0.1 -0.6 -0.4 -0.6z"
+                    },
+                    "color": {"field": "region", "type": "nominal",
+                        "scale": {
+                            "domain": ["North", "South", "West", "Midwest"],
+                            "range": ["#a1dab4", "#41b6c4", "#225ea8", "#756bb1"] // Different shades of green
+                        },
+                         "legend": {"title": "Region"} // Add a legend title
+                    },
+                    "size": {"value": 80}
+                },
+                  "title": {
+                    "text": "Region Distribution", // Chart title
+                    "fontSize": 18,
+                    "anchor": "middle",
+                    "color": "#333"
+                },
+                "params": [{"name": "highlight", "select": "interval"}]
+            };
+            //End Region Chart Specification
+            //Education Chart Specification
+            const educationData =  () => {
+            const data = { values: [] };
+            const nodegreeCount = 64;
+            const bachelorsplusCount = 36;
+            for (let i = 1; i <= nodegreeCount; i++) {
+                data.values.push({ id: i, education: "No Degree" });
+            }
+            for (let i = nodegreeCount + 1; i <= nodegreeCount + bachelorsplusCount; i++) {
+                data.values.push({ id: i, education: "Bachelor's Degree or Higher" });
+            }
+            return data;
+        };
+        
+        const educationChartData = educationData();   
+        
+        const educationSpec = {
+                "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+                "description": "Education Distribution",
+                "config": {
+                  "axis": {
+                    "labelFont": "Arial",
+                    "titleFont": "Arial"
+                  },
+                    "legend": {
+                        "orient": "top",
+                        "title": null,
+                        "labelFont": "Arial",
+                         "symbolType": "circle",
+                         "symbolSize": 70,
+                         "labelColor": "#333",
+                        "padding": 10,
+                        "cornerRadius": 5
+                    },
+                    "view": {"stroke": ""},
+                    "title": {
+                        "font": "Arial",
+                        "fontSize": 16,
+                        "color": "#333",
+                        "anchor": "start"
+                    }
+                },
+                "width": 400,
+                "height": 300,
+                "data": educationChartData,
+                "transform": [
+                    {"calculate": "ceil (datum.id/10)", "as": "col"},
+                    {"calculate": "datum.id - datum.col*10", "as": "row"}
+                ],
+                "mark": {"type": "point", "filled": true},
+                "encoding": {
+                    "x": {"field": "col", "type": "ordinal", "axis": null},
+                    "y": {"field": "row", "type": "ordinal", "axis": null},
+                    "shape": {
+                        "value": "M1.7 -1.7h-0.8c0.3 -0.2 0.6 -0.5 0.6 -0.9c0 -0.6 -0.4 -1 -1 -1c-0.6 0 -1 0.4 -1 1c0 0.4 0.2 0.7 0.6 0.9h-0.8c-0.4 0 -0.7 0.3 -0.7 0.6v1.9c0 0.3 0.3 0.6 0.6 0.6h0.2c0 0 0 0.1 0 0.1v1.9c0 0.3 0.2 0.6 0.3 0.6h1.3c0.2 0 0.3 -0.3 0.3 -0.6v-1.8c0 0 0 -0.1 0 -0.1h0.2c0.3 0 0.6 -0.3 0.6 -0.6v-2c0.2 -0.3 -0.1 -0.6 -0.4 -0.6z"
+                    },
+                    "color": {"field": "education", "type": "nominal",
+                        "scale": {
+                            "domain": ["No Degree", "Bachelor's Degree or Higher"],
+                            "range": ["blue", "red"] // softer colors
+                        },
+                         "legend": {"title": "Education"}  // Add a legend title
+                    },
+                    "size": {"value": 80} // Slightly smaller points
+                },
+                "title": {
+                    "text": "Education", // Chart title
+                    "fontSize": 18,
+                    "anchor": "middle",
+                    "color": "#333"
+                },
+                "params": [{"name": "highlight", "select": "interval"}]
+            };
+    
+
+
+          
             function embedChart(spec) {
                 vegaEmbed("#vis", spec, { actions: false });
             }
     
             // Initial chart load (Gender)
             embedChart(genderSpec);
+            
+        
     
-            // Event listener for dropdown change
-            document.getElementById('chartType').addEventListener('change', function() {
-                const selectedChart = this.value;
-                if (selectedChart === 'gender') {
-                    embedChart(genderSpec);
-                } else if (selectedChart === 'race') {
-                    embedChart(raceSpec);
-                }
-            });
-    
-            function embedChart(spec) {
-                vegaEmbed("#vis", spec, { actions: false });
-            }
+            
         
             // Event listener for dropdown change
             document.getElementById('chartType').addEventListener('change', function() {
@@ -363,7 +489,11 @@
                     embedChart(raceSpec);
                 } else if (selectedChart === 'age') {
                         embedChart(ageSpec);
-                } 
+                } else if (selectedChart === 'region') {
+                        embedChart(regionSpec);
+                } else if (selectedChart === 'education') {
+                        embedChart(educationSpec);
+                }
             });
     
         </script>
