@@ -501,6 +501,85 @@ const ageChartData = ageData();
     </html>
     
     </section>
+    <h2>Bettors, would you say that you win more than you lose, lose more than you win, or that you usually break even?</h2>
+    <div id="vis-1"></div>
+    <script>
+            var vlSpec = {
+                "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+                "data": {
+                    "values": [
+                        {
+                        "Total Men": 1505,
+                        "Total Women": 1566,
+                        "Male Bettors": 354,
+                        "Female Bettors": 181,
+                        "Status": "Win More Than Lose",
+                        "Male": 139,
+                        "Female": 54
+                        },
+                        {
+                        "Total Men": 1505,
+                        "Total Women": 1566,
+                        "Male Bettors": 354,
+                        "Female Bettors": 181,
+                        "Status": "Lost More Than Win",
+                        "Male": 111,
+                        "Female": 50
+                        },
+                        {
+                        "Total Men": 1505,
+                        "Total Women": 1566,
+                        "Male Bettors": 354,
+                        "Female Bettors": 181,
+                        "Status": "Break Even",
+                        "Male": 104,
+                        "Female": 71
+                        }
+                    ]
+                },
+                "repeat": {"layer": ["Male", "Female"]},
+                "spec": {
+                    "mark": "bar",
+                    
+                    "encoding": {
+                        "x": {"field": "Status", "type": "nominal"},
+                        "y": {"field": {"repeat": "layer"}, "type": "quantitative", "title": "Number of Bettors"},
+                        "color": {"datum": {"repeat": "layer"}, "title": "Gender"},
+                        "xOffset": {"datum": {"repeat": "layer"}}
+                    }
+                },
+                "config": {
+                    "mark": {"invalid": null}
+                }
+            };
+            vegaEmbed("#vis-1", vlSpec).catch(console.error);
+    </script>
+
+    <!-- What: Q38 (largest amount won)-->
+    <h2>Bettors, what is the largest amount you've ever won in a day?</h2>
+    <div id="vis-2"></div>
+    <script>
+        var vlSpec = {
+            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+            "data": {
+                "values": [
+                    {"Amount Won": "No More Than $50", "value": 20},
+                    {"Amount Won": "$50-$99.99", "value": 18},
+                    {"Amount Won": "$100-$199.99", "value": 20},
+                    {"Amount Won": "$200-$499.99", "value": 21},
+                    {"Amount Won": "$500-$999.99", "value": 12},
+                    {"Amount Won": "$1000+", "value": 8},
+                    {"Amount Won": "Don't Know or Refused", "value": 1}
+                ]
+            },
+            "mark": {"type": "arc", "tooltip": true},
+            "encoding": {
+                "theta": {"field": "value", "type": "quantitative", "stack": "normalize"},
+                "color": {"field": "Amount Won", "type": "nominal", "sort": null},
+            }
+        }
+        vegaEmbed("#vis-2", vlSpec).catch(console.error);
+    </script>
 
     <!-- @Carlo SECTION: User Story -->
     <section class="mx-5 my-5">
