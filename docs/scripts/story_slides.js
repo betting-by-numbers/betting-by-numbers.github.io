@@ -6,11 +6,25 @@ function showSlide(n, direction = 1) {
   if (n >= slides.length) n = 0;
   if (n < 0) n = slides.length - 1;
 
+  // Activate dots/buttons if currentSlide === 0
+  if (n > 0) {
+    slideIndicators.classList.remove('hidden');
+    slideButtonLeft.classList.remove('hidden');
+    slideButtonRight.classList.remove('hidden');
+  }
+
+  // Deactivate dots/buttons if n === 0
+  if (n === 0) {
+    slideIndicators.classList.add('hidden');
+    slideButtonLeft.classList.add('hidden');
+    slideButtonRight.classList.add('hidden');
+  }
+
   // Update slides with animation
   slides.forEach((slide, index) => {
     // Remove all classes first
     slide.classList.remove('current', 'next', 'previous');
-    
+
     if (index === n) {
       // This is the new current slide
       slide.classList.add('current');
@@ -33,7 +47,7 @@ function showSlide(n, direction = 1) {
   dots.forEach((dot, index) => {
     dot.classList.remove('bg-blue-600');
     dot.classList.add('bg-gray-300');
-    if (index === n) {
+    if (index === n - 1) {
       dot.classList.remove('bg-gray-300');
       dot.classList.add('bg-blue-600');
     }
