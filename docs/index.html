@@ -47,6 +47,9 @@
         </select>
     
         <div id="vis"></div>
+
+        <!-- Add the new popup div here -->
+        <div id="chartInfo" class="popup" style="display: none;"></div>
     
         <script>
             // Gender Chart Specification
@@ -131,37 +134,34 @@
     
     
             // Race Chart Specification
+            const raceData = () => {
+    const data = { values: [] };
+    const whiteCount = 50;
+    const blackCount = 18;
+    const latinoCount = 24; 
+    const asianCount = 5; 
+    const otherCount = 3;
+    let id = 1;
 
-            const raceData =  () => {
-            const data = { values: [] };
-            const whiteCount = 50;
-            const blackCount = 18;
-            const latinoCount = 24; 
-            const asianCount = 5; 
-            const otherCount = 3;
+    for (let i = 0; i < whiteCount; i++) {
+        data.values.push({ id: id++, race: "white" });
+    }   
+    for (let i = 0; i < blackCount; i++) {
+        data.values.push({ id: id++, race: "black" });
+    }   
+    for (let i = 0; i < latinoCount; i++) {
+        data.values.push({ id: id++, race: "latino" });
+    }   
+    for (let i = 0; i < asianCount; i++) {
+        data.values.push({ id: id++, race: "asian" });
+    }
+    for (let i = 0; i < otherCount; i++) {
+        data.values.push({ id: id++, race: "other" });
+    }  
+    return data;
+};
 
-            for (let i = 1; i <= whiteCount; i++) {
-                data.values.push({ id: i, race: "white" });
-            }
-
-            for (let i = blackCount + 1; i <= whiteCount + blackCount; i++) {
-                data.values.push({ id: i, race: "black" });
-            }
-
-            for (let i = latinoCount + 1; i <= whiteCount + blackCount + latinoCount; i++) {
-                data.values.push({ id: i, race: "latino" });
-            }
-
-            for (let i = asianCount + 1; i <= whiteCount + blackCount + latinoCount + asianCount; i++) {
-                data.values.push({ id: i, race: "asian" });
-            }
-
-            for (let i = otherCount + 1; i <= whiteCount + blackCount + latinoCount + asianCount + otherCount; i++) {
-                data.values.push({ id: i, race: "other" });
-            }
-
-            return data;
-        };
+     
 
         const raceChartData = raceData();
 
@@ -208,7 +208,7 @@
                     "color": {"field": "race", "type": "nominal",
                         "scale": {
                             "domain": ["white", "black", "latino", "asian", 'other'],
-                            "range": ["red", "white", "blue", "pink", "grey"] // Softer purples
+                            "range": ["red", "green", "blue", "pink", "grey"] // Softer purples
                         },
                          "legend": {"title": "Race"} // Add a legend title
                     },
@@ -229,26 +229,24 @@
     const midyoungCount = 38;
     const midoldCount = 11; 
     const oldCount = 5; 
+    let id = 1;
     
-
     for (let i = 1; i <= youngCount; i++) {
-        data.values.push({ id: i, age: "18-34" });
+        data.values.push({ id: id, age: "18-34" });
+        id++;
     }
-
-    for (let i = midyoungCount + 1; i <= youngCount + midyoungCount; i++) {
-        data.values.push({ id: i, age: "35-49" });
+    for (let i = youngCount + 1; i <= youngCount + midyoungCount; i++) {
+        data.values.push({ id: id, age: "35-49" });
+        id++;
     }
-
-    for (let i = midoldCount + 1; i <= youngCount + midyoungCount + midoldCount; i++) {
-        data.values.push({ id: i, age: "50-64" });
+    for (let i = youngCount + midyoungCount + 1; i <= youngCount + midyoungCount + midoldCount; i++) {
+        data.values.push({ id: id, age: "50-64" });
+        id++;
     }
-
-    for (let i = oldCount + 1; i <= youngCount + midyoungCount + midoldCount + oldCount; i++) {
-        data.values.push({ id: i, age: "65+" });
+    for (let i = youngCount + midyoungCount + midoldCount + 1; i <= youngCount + midyoungCount + midoldCount + oldCount; i++) {
+        data.values.push({ id: id, age: "65+" });
+        id++;
     }
-
-    
-
     return data;
 };
 
@@ -297,7 +295,7 @@ const ageChartData = ageData();
                     "color": {"field": "age", "type": "nominal",
                         "scale": {
                             "domain": ["18-34", "35-49", "50-64", "65+"],
-                            "range": ["#a1dab4", "#41b6c4", "#225ea8", "#756bb1"] // Different shades of green
+                            "range": ["pink", "red", "blue", "black"] // Different shades of green
                         },
                          "legend": {"title": "Age Group"} // Add a legend title
                     },
@@ -483,18 +481,36 @@ const ageChartData = ageData();
             // Event listener for dropdown change
             document.getElementById('chartType').addEventListener('change', function() {
                 const selectedChart = this.value;
+                const popup = document.getElementById('chartInfo');
+                let popupText = '';
                 if (selectedChart === 'gender') {
                     embedChart(genderSpec);
+                    popupText = "The gender distribution of sports bettors is: 65% male and 35%  female.";
                 } else if (selectedChart === 'race') {
                     embedChart(raceSpec);
+                    popupText = "The racial distribution of sports bettors is: 50% White, 18% Black, 24% Latino, 5% Asian, and 3% Other.";
                 } else if (selectedChart === 'age') {
                         embedChart(ageSpec);
+                    popupText = "The age distribution of sports bettors is: 46% 18-34, 38% 35-49, 11% 50-64, and 5% 65+.";  
                 } else if (selectedChart === 'region') {
                         embedChart(regionSpec);
+                    popupText = "The regional distribution of sports bettors is: 25% Northeast, 33% South, 22% West, and 20% Midwest.";
                 } else if (selectedChart === 'education') {
                         embedChart(educationSpec);
+                    popupText = "64% of sports bettors have no college degree, while 36% have a bachelor's degree or higher.";
                 }
+                popup.textContent = popupText;
+                popup.style.display = 'block';
             });
+
+            document.addEventListener('click', function(event) {
+            const popup = document.getElementById('chartInfo');
+            const chartType = document.getElementById('chartType');
+             if (event.target !== popup && event.target !== chartType) {
+             popup.style.display = 'none';
+                     }
+                });
+
     
         </script>
     </div>
