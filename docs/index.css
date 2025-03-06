@@ -21,13 +21,9 @@ NOTE: This file does ~~not~~ contain Tailwind CSS class definitions.
 
 .index-header {
   height: 75px;
-
-  background: #393f4f;
 }
 
 .index-main {
-  min-height: 645px; // Remove once page is filled
-
   padding-left: 2rem;
   padding-right: 2rem;
 }
@@ -40,6 +36,27 @@ NOTE: This file does ~~not~~ contain Tailwind CSS class definitions.
 
 img {
   object-fit: none;
+}
+
+.font-raleway-300 {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.font-raleway-500 {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.font-raleway-700 {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
 }
 
 // Animation for Slides

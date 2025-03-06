@@ -8,6 +8,11 @@
   <!-- Tailwind CSS Import and Config -->
   <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 
+  <!-- Import Fonts: Raleway -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
   <!-- Import index.css stylesheet -->
   <link rel="stylesheet" href="index.css">
   <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
@@ -24,20 +29,25 @@
 <body class="index-body">
 
   <!-- HEADER: Will store navigational elements, title, etc -->
-  <header class="index-header max-w-[1920px] mx-auto">
-    <h1 class="text-white ">A Sports Betting Story</h1>
+  <header class="index-header max-w-[1920px] mx-auto pt-16 pb-32">
+    <h1 class="text-white text-center font-raleway-700 text-6xl">A Sports Betting Story</h1>
   </header>
 
   <!-- MAIN: Main content of a page will go here -->
-  <main class="index-main">
-    <p class="text-white text-center">In the years following the 2018 Supreme Court decision to overturn the Professional and Amateur Sports Protection Act (PASPA), sports betting has transformed from a largely prohibited activity into a mainstream industry across the United States. This landmark ruling granted individual states the authority to legalize and regulate sports wagering, leading to rapid and widespread adoption.</p>
+  <main class="index-main max-w-6xl mx-auto">
+    <p class="text-lg text-white text-center font-raleway-500">In the years following the 2018 Supreme Court decision to overturn the Professional and Amateur Sports Protection Act (PASPA), sports betting has transformed from a largely prohibited activity into a mainstream industry across the United States. This landmark ruling granted individual states the authority to legalize and regulate sports wagering, leading to rapid and widespread adoption.</p>
+    <p class="text-lg text-white text-center font-raleway-500 pt-6">As of March 2025, sports betting is legal in 38 states and the District of Columbia, with 30 of these jurisdictions also permitting online wagering. This expansion has been accompanied by a significant increase in betting activity. In 2023, Americans legally wagered over $115 billion on sports, marking a substantial rise from previous years. </p>
+    <p class="text-lg text-white text-center font-raleway-500 pt-6">2023 data from St. Bonaventure and Siena Research indicate that nearly four in ten Americans bet on sporting events and one in five have an online account with a sports betting service such as DraftKings, Caesars, or FanDuel. Those with online accounts tend to be younger and less educated and are more likely to be male and from the south.</p>
     
+    <!-- Divider -->
+    <div class="row flex justify-center">
+      <div class="bg-white mt-10 mb-8 w-24 h-1 lg:h-2"></div>
+    </div>
+
+    <p class="text-lg text-white text-center font-raleway-700 pt-6">Click on the interactive chart below to see the demographic makeup of sports bettors with online accounts.</p>
+
     <!-- @Hannah SECTION: Interactive Chart -->
     <section class="mx-5 my-5">
-      <h1 class="text-white text-center">Interactive Chart</h1>
-      <div>
-        <h1>Demographic Visualization</h1>
-    
         <select class="text-white" id="chartType">
             <option value="gender">Gender</option>
             <option value="race">Race</option>
@@ -52,118 +62,112 @@
         <div id="chartInfo" class="popup" style="display: none;"></div>
     
         <script>
-            // Gender Chart Specification
-            // TODO: Prepare the gender date using JS (rather than reading
-            // from a JSON file or hard-coding the data)
-            const genderData =  () => {
-            const data = { values: [] };
-            const maleCount = 65;
-            const femaleCount = 35;
+          // Gender Chart Specification
+          const genderData =  () => {
+              const data = { values: [] };
+              const maleCount = 65;
+              const femaleCount = 35;
 
-            for (let i = 1; i <= maleCount; i++) {
-                data.values.push({ id: i, sex: "male" });
-            }
+              for (let i = 1; i <= maleCount; i++) {
+                  data.values.push({ id: i, sex: "male" });
+              }
 
-            for (let i = maleCount + 1; i <= maleCount + femaleCount; i++) {
-                data.values.push({ id: i, sex: "female" });
-            }
+              for (let i = maleCount + 1; i <= maleCount + femaleCount; i++) {
+                  data.values.push({ id: i, sex: "female" });
+              }
 
-            return data;
-        };
-
-        const genderChartData = genderData();
+              return data;
+          };
+          const genderChartData = genderData();
 
 
-            const genderSpec = {
-                "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-                "description": "Gender Distribution",
-                "config": {
-                  "axis": {
-                    "labelFont": "Arial",
-                    "titleFont": "Arial"
+          const genderSpec = {
+              "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+              "description": "Gender Distribution",
+              "config": {
+                "axis": {
+                  "labelFont": "Arial",
+                  "titleFont": "Arial"
+                },
+                  "legend": {
+                      "orient": "top",
+                      "title": null,
+                      "labelFont": "Arial",
+                        "symbolType": "circle",
+                        "symbolSize": 70,
+                        "labelColor": "#333",
+                      "padding": 10,
+                      "cornerRadius": 5
                   },
-                    "legend": {
-                        "orient": "top",
-                        "title": null,
-                        "labelFont": "Arial",
-                         "symbolType": "circle",
-                         "symbolSize": 70,
-                         "labelColor": "#333",
-                        "padding": 10,
-                        "cornerRadius": 5
-                    },
-                    "view": {"stroke": ""},
-                    "title": {
-                        "font": "Arial",
-                        "fontSize": 16,
-                        "color": "#333",
-                        "anchor": "start"
-                    }
-                },
-                "width": 400,
-                "height": 300,
-                "data": genderChartData,
-                "transform": [
-                    {"calculate": "ceil (datum.id/10)", "as": "col"},
-                    {"calculate": "datum.id - datum.col*10", "as": "row"}
-                ],
-                "mark": {"type": "point", "filled": true},
-                "encoding": {
-                    "x": {"field": "col", "type": "ordinal", "axis": null},
-                    "y": {"field": "row", "type": "ordinal", "axis": null},
-                    "shape": {
-                        "value": "M1.7 -1.7h-0.8c0.3 -0.2 0.6 -0.5 0.6 -0.9c0 -0.6 -0.4 -1 -1 -1c-0.6 0 -1 0.4 -1 1c0 0.4 0.2 0.7 0.6 0.9h-0.8c-0.4 0 -0.7 0.3 -0.7 0.6v1.9c0 0.3 0.3 0.6 0.6 0.6h0.2c0 0 0 0.1 0 0.1v1.9c0 0.3 0.2 0.6 0.3 0.6h1.3c0.2 0 0.3 -0.3 0.3 -0.6v-1.8c0 0 0 -0.1 0 -0.1h0.2c0.3 0 0.6 -0.3 0.6 -0.6v-2c0.2 -0.3 -0.1 -0.6 -0.4 -0.6z"
-                    },
-                    "color": {"field": "sex", "type": "nominal",
-                        "scale": {
-                            "domain": ["male", "female"],
-                            "range": ["#66B2FF", "#FF80CC"] // softer colors
-                        },
-                         "legend": {"title": "Gender"}  // Add a legend title
-                    },
-                    "size": {"value": 80} // Slightly smaller points
-                },
-                "title": {
-                    "text": "Gender Distribution", // Chart title
-                    "fontSize": 18,
-                    "anchor": "middle",
-                    "color": "#333"
-                },
-                "params": [{"name": "highlight", "select": "interval"}]
-            };
+                  "view": {"stroke": ""},
+                  "title": {
+                      "font": "Arial",
+                      "fontSize": 16,
+                      "color": "#333",
+                      "anchor": "start"
+                  }
+              },
+              "width": 400,
+              "height": 300,
+              "data": genderChartData,
+              "transform": [
+                  {"calculate": "ceil (datum.id/10)", "as": "col"},
+                  {"calculate": "datum.id - datum.col*10", "as": "row"}
+              ],
+              "mark": {"type": "point", "filled": true},
+              "encoding": {
+                  "x": {"field": "col", "type": "ordinal", "axis": null},
+                  "y": {"field": "row", "type": "ordinal", "axis": null},
+                  "shape": {
+                      "value": "M1.7 -1.7h-0.8c0.3 -0.2 0.6 -0.5 0.6 -0.9c0 -0.6 -0.4 -1 -1 -1c-0.6 0 -1 0.4 -1 1c0 0.4 0.2 0.7 0.6 0.9h-0.8c-0.4 0 -0.7 0.3 -0.7 0.6v1.9c0 0.3 0.3 0.6 0.6 0.6h0.2c0 0 0 0.1 0 0.1v1.9c0 0.3 0.2 0.6 0.3 0.6h1.3c0.2 0 0.3 -0.3 0.3 -0.6v-1.8c0 0 0 -0.1 0 -0.1h0.2c0.3 0 0.6 -0.3 0.6 -0.6v-2c0.2 -0.3 -0.1 -0.6 -0.4 -0.6z"
+                  },
+                  "color": {"field": "sex", "type": "nominal",
+                      "scale": {
+                          "domain": ["male", "female"],
+                          "range": ["#66B2FF", "#FF80CC"] // softer colors
+                      },
+                        "legend": {"title": "Gender"}  // Add a legend title
+                  },
+                  "size": {"value": 80} // Slightly smaller points
+              },
+              "title": {
+                  "text": "Gender Distribution", // Chart title
+                  "fontSize": 18,
+                  "anchor": "middle",
+                  "color": "#333"
+              },
+              "params": [{"name": "highlight", "select": "interval"}]
+          };
     
     
             // Race Chart Specification
             const raceData = () => {
-    const data = { values: [] };
-    const whiteCount = 50;
-    const blackCount = 18;
-    const latinoCount = 24; 
-    const asianCount = 5; 
-    const otherCount = 3;
-    let id = 1;
+                const data = { values: [] };
+                const whiteCount = 50;
+                const blackCount = 18;
+                const latinoCount = 24; 
+                const asianCount = 5; 
+                const otherCount = 3;
+                let id = 1;
 
-    for (let i = 0; i < whiteCount; i++) {
-        data.values.push({ id: id++, race: "white" });
-    }   
-    for (let i = 0; i < blackCount; i++) {
-        data.values.push({ id: id++, race: "black" });
-    }   
-    for (let i = 0; i < latinoCount; i++) {
-        data.values.push({ id: id++, race: "latino" });
-    }   
-    for (let i = 0; i < asianCount; i++) {
-        data.values.push({ id: id++, race: "asian" });
-    }
-    for (let i = 0; i < otherCount; i++) {
-        data.values.push({ id: id++, race: "other" });
-    }  
-    return data;
-};
-
-     
-
-        const raceChartData = raceData();
+                for (let i = 0; i < whiteCount; i++) {
+                    data.values.push({ id: id++, race: "white" });
+                }   
+                for (let i = 0; i < blackCount; i++) {
+                    data.values.push({ id: id++, race: "black" });
+                }   
+                for (let i = 0; i < latinoCount; i++) {
+                    data.values.push({ id: id++, race: "latino" });
+                }   
+                for (let i = 0; i < asianCount; i++) {
+                    data.values.push({ id: id++, race: "asian" });
+                }
+                for (let i = 0; i < otherCount; i++) {
+                    data.values.push({ id: id++, race: "other" });
+                }  
+                return data;
+            };
+            const raceChartData = raceData();
 
             const raceSpec = {
                 "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
@@ -180,7 +184,7 @@
                         "labelFont": "Arial",
                          "symbolType": "circle",
                          "symbolSize": 70,
-                         "labelColor": "#333",
+                         "labelColor": "#FFFFFF",
                         "padding": 10,
                         "cornerRadius": 5
                     },
@@ -191,7 +195,7 @@
                     "title": {
                         "font": "Arial",
                         "fontSize": 16,
-                        "color": "#333",
+                        "color": "#FFFFFF",
                         "anchor": "start"
                     }
                 },
@@ -212,17 +216,17 @@
                     "color": {"field": "race", "type": "nominal",
                         "scale": {
                             "domain": ["white", "black", "latino", "asian", 'other'],
-                            "range": ["red", "green", "blue", "pink", "grey"] // Softer purples
+                            "range": ["#007991", "#97CC04", "#EEB902", "#F45D01", "#474647"] // Softer purples
                         },
                          "legend": {"title": "Race"} // Add a legend title
                     },
-                    "size": {"value": 80}
+                    "size": {"value": 50}
                 },
                   "title": {
                     "text": "Race Distribution", // Chart title
-                    "fontSize": 18,
+                    "fontSize": 24,
                     "anchor": "middle",
-                    "color": "#333"
+                    "color": "#FFFFFF"
                 },
                 "params": [{"name": "highlight", "select": "interval"}]
             };
@@ -309,7 +313,7 @@ const ageChartData = ageData();
                     "text": "Age Group Distribution", // Chart title
                     "fontSize": 18,
                     "anchor": "middle",
-                    "color": "#333"
+                    "color": "#FFFFFF"
                 },
                 "params": [{"name": "highlight", "select": "interval"}]
             };
@@ -517,8 +521,6 @@ const ageChartData = ageData();
 
     
         </script>
-    </div>
-    </html>
     
     </section>
     <h2>Bettors, would you say that you win more than you lose, lose more than you win, or that you usually break even?</h2>
