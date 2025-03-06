@@ -24,14 +24,11 @@ NOTE: This file does ~~not~~ contain Tailwind CSS class definitions.
 }
 
 .index-main {
-  padding-left: 2rem;
-  padding-right: 2rem;
+
 }
 
 .index-footer {
   height: 100px;
-
-  background: #393f4f;
 }
 
 img {

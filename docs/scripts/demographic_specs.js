@@ -5,6 +5,18 @@
  * demographic information.
  */
 
+// Shared States
+const legendSymbolSize = 70;
+const symbolSize = 50;
+const backgroundColorHex = "#0b1121";
+
+const demographicVizTitle = {
+    "font": "Arial",
+    "fontSize": 16,
+    "color": "#FFFFFF",
+    "anchor": "start"
+};
+
 /* Gender Data Visualization */
 const genderData = () => {
   const data = { values: [] };
@@ -24,6 +36,7 @@ const genderData = () => {
 
 const genderSpec = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": backgroundColorHex,
   "description": "Gender Distribution",
   "config": {
     "axis": {
@@ -34,19 +47,17 @@ const genderSpec = {
           "orient": "top",
           "title": null,
           "labelFont": "Arial",
-            "symbolType": "circle",
-            "symbolSize": 70,
-            "labelColor": "#333",
+          "symbolType": "circle",
+          "symbolSize": legendSymbolSize,
+          "labelColor": "#FFFFFF",
           "padding": 10,
           "cornerRadius": 5
       },
-      "view": {"stroke": ""},
-      "title": {
-          "font": "Arial",
-          "fontSize": 16,
-          "color": "#333",
-          "anchor": "start"
-      }
+      "view": {
+        "fill": backgroundColorHex,
+        "stroke": backgroundColorHex,
+      },
+      "title": demographicVizTitle
   },
   "width": 400,
   "height": 300,
@@ -63,19 +74,22 @@ const genderSpec = {
           "value": "M1.7 -1.7h-0.8c0.3 -0.2 0.6 -0.5 0.6 -0.9c0 -0.6 -0.4 -1 -1 -1c-0.6 0 -1 0.4 -1 1c0 0.4 0.2 0.7 0.6 0.9h-0.8c-0.4 0 -0.7 0.3 -0.7 0.6v1.9c0 0.3 0.3 0.6 0.6 0.6h0.2c0 0 0 0.1 0 0.1v1.9c0 0.3 0.2 0.6 0.3 0.6h1.3c0.2 0 0.3 -0.3 0.3 -0.6v-1.8c0 0 0 -0.1 0 -0.1h0.2c0.3 0 0.6 -0.3 0.6 -0.6v-2c0.2 -0.3 -0.1 -0.6 -0.4 -0.6z"
       },
       "color": {"field": "sex", "type": "nominal",
-          "scale": {
-              "domain": ["male", "female"],
-              "range": ["#66B2FF", "#FF80CC"] // softer colors
-          },
-            "legend": {"title": "Gender"}  // Add a legend title
+        "scale": {
+            "domain": ["male", "female"],
+            "range": ["#4D7EA8", "#ED6A5A"] // softer colors
+        },
+        "legend": {
+          "title": "Gender",
+          "titleColor": "#FFFFFF",
+        }  // Add a legend title
       },
-      "size": {"value": 80} // Slightly smaller points
+      "size": {"value": symbolSize} // Slightly smaller points
   },
   "title": {
-      "text": "Gender Distribution", // Chart title
-      "fontSize": 18,
+      "text": null, // Chart title
+      "fontSize": 24,
       "anchor": "middle",
-      "color": "#333"
+      "color": "#FFFFFF"
   },
   "params": [{"name": "highlight", "select": "interval"}]
 };
@@ -122,22 +136,17 @@ const raceSpec = {
           "orient": "top",
           "title": null,
           "labelFont": "Arial",
-           "symbolType": "circle",
-           "symbolSize": 70,
-           "labelColor": "#FFFFFF",
+          "symbolType": "circle",
+          "symbolSize": legendSymbolSize,
+          "labelColor": "#FFFFFF",
           "padding": 10,
           "cornerRadius": 5
       },
       "view": {
-        "fill": "#0b1121",
-        "stroke": "#0b1121"
+        "fill": backgroundColorHex,
+        "stroke": backgroundColorHex,
       },
-      "title": {
-          "font": "Arial",
-          "fontSize": 16,
-          "color": "#FFFFFF",
-          "anchor": "start"
-      }
+      "title": demographicVizTitle,
   },
   "width": 400,
   "height": 300,
@@ -156,14 +165,17 @@ const raceSpec = {
       "color": {"field": "race", "type": "nominal",
           "scale": {
               "domain": ["white", "black", "latino", "asian", 'other'],
-              "range": ["#007991", "#97CC04", "#EEB902", "#F45D01", "#474647"] // Softer purples
+              "range": ["#4D7EA8", "#ED6A5A", "#70A9A1", "#EEB902", "#4D5359"] // Softer purples
           },
-           "legend": {"title": "Race"} // Add a legend title
+          "legend": {
+            "title": "Race",
+            "titleColor": "#FFFFFF",
+          } // Add a legend title
       },
-      "size": {"value": 50}
+      "size": {"value": symbolSize}
   },
     "title": {
-      "text": "Race Distribution", // Chart title
+      "text": null, // Chart title
       "fontSize": 24,
       "anchor": "middle",
       "color": "#FFFFFF"
@@ -202,6 +214,7 @@ const ageData = () => {
 
 const ageSpec = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": backgroundColorHex,
   "description": "Age Group Distribution",
   "config": {
     "axis": {
@@ -212,19 +225,17 @@ const ageSpec = {
           "orient": "top",
           "title": null,
           "labelFont": "Arial",
-           "symbolType": "circle",
-           "symbolSize": 70,
-           "labelColor": "#333",
+          "symbolType": "circle",
+          "symbolSize": legendSymbolSize,
+          "labelColor": "#FFFFFF",
           "padding": 10,
           "cornerRadius": 5
       },
-      "view": {"stroke": ""},
-      "title": {
-          "font": "Arial",
-          "fontSize": 16,
-          "color": "#333",
-          "anchor": "start"
-      }
+      "view": {
+        "fill": backgroundColorHex,
+        "stroke": backgroundColorHex,
+      },
+      "title": demographicVizTitle
   },
   "width": 400,
   "height": 300,
@@ -243,15 +254,18 @@ const ageSpec = {
       "color": {"field": "age", "type": "nominal",
           "scale": {
               "domain": ["18-34", "35-49", "50-64", "65+"],
-              "range": ["pink", "red", "blue", "black"] // Different shades of green
+              "range": ["#C9F0FF", "#95A78D", "#788AA3", "#BD897E"] // Different shades of green
           },
-           "legend": {"title": "Age Group"} // Add a legend title
+          "legend": {
+            "title": "Age Group",
+            "titleColor": "#FFFFFF",
+          } // Add a legend title
       },
-      "size": {"value": 80}
+      "size": {"value": symbolSize}
   },
     "title": {
-      "text": "Age Group Distribution", // Chart title
-      "fontSize": 18,
+      "text": null, // Chart title
+      "fontSize": 24,
       "anchor": "middle",
       "color": "#FFFFFF"
   },
@@ -280,63 +294,66 @@ const regionData =  () => {
   return data;
 };    
 const regionChartData = regionData();
-  const regionSpec = {
-      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-      "description": "Age Group Distribution",
-      "config": {
-        "axis": {
-          "labelFont": "Arial",
-          "titleFont": "Arial"
+
+const regionSpec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "background": backgroundColorHex,
+    "description": "Regional Distribution",
+    "config": {
+      "axis": {
+        "labelFont": "Arial",
+        "titleFont": "Arial"
+      },
+        "legend": {
+            "orient": "top",
+            "title": null,
+            "labelFont": "Arial",
+            "symbolType": "circle",
+            "symbolSize": legendSymbolSize,
+            "labelColor": "#FFFFFF",
+            "padding": 10,
+            "cornerRadius": 5
         },
-          "legend": {
-              "orient": "top",
-              "title": null,
-              "labelFont": "Arial",
-               "symbolType": "circle",
-               "symbolSize": 70,
-               "labelColor": "#333",
-              "padding": 10,
-              "cornerRadius": 5
-          },
-          "view": {"stroke": ""},
-          "title": {
-              "font": "Arial",
-              "fontSize": 16,
-              "color": "#333",
-              "anchor": "start"
-          }
-      },
-      "width": 400,
-      "height": 300,
-      "data": regionChartData,
-      "transform": [
-          {"calculate": "ceil (datum.id/10)", "as": "col"},
-          {"calculate": "datum.id - datum.col*10", "as": "row"}
-      ],
-      "mark": {"type": "point", "filled": true},
-      "encoding": {
-          "x": {"field": "col", "type": "ordinal", "axis": null},
-          "y": {"field": "row", "type": "ordinal", "axis": null},
-          "shape": {
-              "value": "M1.7 -1.7h-0.8c0.3 -0.2 0.6 -0.5 0.6 -0.9c0 -0.6 -0.4 -1 -1 -1c-0.6 0 -1 0.4 -1 1c0 0.4 0.2 0.7 0.6 0.9h-0.8c-0.4 0 -0.7 0.3 -0.7 0.6v1.9c0 0.3 0.3 0.6 0.6 0.6h0.2c0 0 0 0.1 0 0.1v1.9c0 0.3 0.2 0.6 0.3 0.6h1.3c0.2 0 0.3 -0.3 0.3 -0.6v-1.8c0 0 0 -0.1 0 -0.1h0.2c0.3 0 0.6 -0.3 0.6 -0.6v-2c0.2 -0.3 -0.1 -0.6 -0.4 -0.6z"
-          },
-          "color": {"field": "region", "type": "nominal",
-              "scale": {
-                  "domain": ["North", "South", "West", "Midwest"],
-                  "range": ["#a1dab4", "#41b6c4", "#225ea8", "#756bb1"] // Different shades of green
-              },
-               "legend": {"title": "Region"} // Add a legend title
-          },
-          "size": {"value": 80}
-      },
-        "title": {
-          "text": "Region Distribution", // Chart title
-          "fontSize": 18,
-          "anchor": "middle",
-          "color": "#333"
-      },
-      "params": [{"name": "highlight", "select": "interval"}]
-  };
+        "view": {
+          "fill": backgroundColorHex,
+          "stroke": backgroundColorHex,
+        },
+        "title": demographicVizTitle
+    },
+    "width": 400,
+    "height": 300,
+    "data": regionChartData,
+    "transform": [
+        {"calculate": "ceil (datum.id/10)", "as": "col"},
+        {"calculate": "datum.id - datum.col*10", "as": "row"}
+    ],
+    "mark": {"type": "point", "filled": true},
+    "encoding": {
+        "x": {"field": "col", "type": "ordinal", "axis": null},
+        "y": {"field": "row", "type": "ordinal", "axis": null},
+        "shape": {
+            "value": "M1.7 -1.7h-0.8c0.3 -0.2 0.6 -0.5 0.6 -0.9c0 -0.6 -0.4 -1 -1 -1c-0.6 0 -1 0.4 -1 1c0 0.4 0.2 0.7 0.6 0.9h-0.8c-0.4 0 -0.7 0.3 -0.7 0.6v1.9c0 0.3 0.3 0.6 0.6 0.6h0.2c0 0 0 0.1 0 0.1v1.9c0 0.3 0.2 0.6 0.3 0.6h1.3c0.2 0 0.3 -0.3 0.3 -0.6v-1.8c0 0 0 -0.1 0 -0.1h0.2c0.3 0 0.6 -0.3 0.6 -0.6v-2c0.2 -0.3 -0.1 -0.6 -0.4 -0.6z"
+        },
+        "color": {"field": "region", "type": "nominal",
+            "scale": {
+                "domain": ["North", "South", "West", "Midwest"],
+                "range": ["#a1dab4", "#41b6c4", "#225ea8", "#756bb1"] // Different shades of green
+            },
+            "legend": {
+              "title": "Region",
+              "titleColor": "#FFFFFF",
+            } // Add a legend title
+        },
+        "size": {"value": symbolSize}
+    },
+      "title": {
+        "text": null, // Chart title
+        "fontSize": 24,
+        "anchor": "middle",
+        "color": "#FFFFFF"
+    },
+    "params": [{"name": "highlight", "select": "interval"}]
+};
 
 /* Education Data Visualization */
 const educationData =  () => {
@@ -354,6 +371,7 @@ const educationData =  () => {
 
 const educationSpec = {
       "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "background": backgroundColorHex,
       "description": "Education Distribution",
       "config": {
         "axis": {
@@ -364,19 +382,17 @@ const educationSpec = {
               "orient": "top",
               "title": null,
               "labelFont": "Arial",
-               "symbolType": "circle",
-               "symbolSize": 70,
-               "labelColor": "#333",
+              "symbolType": "circle",
+              "symbolSize": legendSymbolSize,
+              "labelColor": "#FFFFFF",
               "padding": 10,
               "cornerRadius": 5
           },
-          "view": {"stroke": ""},
-          "title": {
-              "font": "Arial",
-              "fontSize": 16,
-              "color": "#333",
-              "anchor": "start"
-          }
+          "view": {
+            "fill": backgroundColorHex,
+            "stroke": backgroundColorHex,
+          },
+          "title": demographicVizTitle
       },
       "width": 400,
       "height": 300,
@@ -395,17 +411,20 @@ const educationSpec = {
           "color": {"field": "education", "type": "nominal",
               "scale": {
                   "domain": ["No Degree", "Bachelor's Degree or Higher"],
-                  "range": ["blue", "red"] // softer colors
+                  "range": ["#4D7EA8", "#ED6A5A"] // softer colors
               },
-               "legend": {"title": "Education"}  // Add a legend title
+               "legend": {
+                "title": "Education Level",
+                "titleColor": "#FFFFFF",
+              }  // Add a legend title
           },
-          "size": {"value": 80} // Slightly smaller points
+          "size": {"value": symbolSize} // Slightly smaller points
       },
       "title": {
-          "text": "Education", // Chart title
-          "fontSize": 18,
+          "text": null, // Chart title
+          "fontSize": 24,
           "anchor": "middle",
-          "color": "#333"
+          "color": "#FFFFFF"
       },
       "params": [{"name": "highlight", "select": "interval"}]
   };
@@ -421,31 +440,30 @@ embedChart(genderSpec);
 document.getElementById('chartType').addEventListener('change', function() {
   const selectedChart = this.value;
   const popup = document.getElementById('chartInfo');
+  const popupTitle = document.getElementById('titleChartInfo');
   let popupText = '';
+  let titleText = '';
   if (selectedChart === 'gender') {
       embedChart(genderSpec);
-      popupText = "The gender distribution of sports bettors is: 65% male and 35%  female.";
+      titleText = "Gender Distribution"
+      popupText = "The gender distribution of sports bettors is:<br> 65% male and 35% female.";
   } else if (selectedChart === 'race') {
       embedChart(raceSpec);
-      popupText = "The racial distribution of sports bettors is: 50% White, 18% Black, 24% Latino, 5% Asian, and 3% Other.";
+      titleText = "Race Distribution"
+      popupText = "The racial distribution of sports bettors is:<br> 50% White<br> 18% Black<br> 24% Latino<br> 5% Asian<br> 3% Other<br>";
   } else if (selectedChart === 'age') {
       embedChart(ageSpec);
-      popupText = "The age distribution of sports bettors is: 46% 18-34, 38% 35-49, 11% 50-64, and 5% 65+.";  
+      titleText = "Grouped Age Distribution"
+      popupText = "The age range distribution of sports bettors are:<br> 46% ages 18-34<br> 38% ages 35-49<br> 11% ages 50-64<br> 5% ages 65+";  
   } else if (selectedChart === 'region') {
       embedChart(regionSpec);
-      popupText = "The regional distribution of sports bettors is: 25% Northeast, 33% South, 22% West, and 20% Midwest.";
+      titleText = "Regional Distribution"
+      popupText = "The regional distribution of sports bettors is:<br> 25% Northeastern<br> 33% Southern<br> 22% Western<br> 20% Midwestern<br>";
   } else if (selectedChart === 'education') {
       embedChart(educationSpec);
+      titleText = "Educational Level Distribution"
       popupText = "64% of sports bettors have no college degree, while 36% have a bachelor's degree or higher.";
   }
-  popup.textContent = popupText;
-  popup.style.display = 'block';
-});
-
-document.addEventListener('click', function(event) {
-  const popup = document.getElementById('chartInfo');
-  const chartType = document.getElementById('chartType');
-  if (event.target !== popup && event.target !== chartType) {
-    popup.style.display = 'none';
-  }
+  popup.innerHTML = popupText;
+  popupTitle.innerText = titleText;
 });

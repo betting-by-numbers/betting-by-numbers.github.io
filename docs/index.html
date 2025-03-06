@@ -37,34 +37,45 @@
   </header>
 
   <!-- MAIN: Main content of a page will go here -->
-  <main class="index-main max-w-6xl mx-auto">
-    <p class="text-lg text-white text-center font-raleway-500">In the years following the 2018 Supreme Court decision to overturn the Professional and Amateur Sports Protection Act (PASPA), sports betting has transformed from a largely prohibited activity into a mainstream industry across the United States. This landmark ruling granted individual states the authority to legalize and regulate sports wagering, leading to rapid and widespread adoption.</p>
+  <main class="index-main max-w-6xl mx-auto px-8 md:px-12 lg:px-16">
+    <p class="text-lg text-white text-center font-raleway-500">In the years following the 2018 Supreme Court decision to overturn the <a href="https://en.wikipedia.org/wiki/Professional_and_Amateur_Sports_Protection_Act_of_1992" class="hover:text-gray-500"> Professional and Amateur Sports Protection Act (PASPA)</a>, sports betting has transformed from a largely prohibited activity into a mainstream industry across the United States. This landmark ruling granted individual states the authority to legalize and regulate sports wagering, leading to rapid and widespread adoption.</p>
     <p class="text-lg text-white text-center font-raleway-500 pt-6">As of March 2025, sports betting is legal in 38 states and the District of Columbia, with 30 of these jurisdictions also permitting online wagering. This expansion has been accompanied by a significant increase in betting activity. In 2023, Americans legally wagered over $115 billion on sports, marking a substantial rise from previous years. </p>
-    <p class="text-lg text-white text-center font-raleway-500 pt-6">2023 data from St. Bonaventure and Siena Research indicate that nearly four in ten Americans bet on sporting events and one in five have an online account with a sports betting service such as DraftKings, Caesars, or FanDuel. Those with online accounts tend to be younger and less educated and are more likely to be male and from the south.</p>
     
     <!-- Divider -->
     <div class="row flex justify-center">
       <div class="bg-white mt-10 mb-8 w-24 h-1 lg:h-2"></div>
     </div>
 
-    <p class="text-lg text-white text-center font-raleway-700 pt-6">Click on the interactive chart below to see the demographic makeup of sports bettors with online accounts.</p>
+    <p class="text-lg text-white text-center font-raleway-500 pt-6">2023 data from St. Bonaventure and Siena Research indicate that nearly four in ten Americans bet on sporting events and one in five have an online account with a sports betting service such as DraftKings, Caesars, or FanDuel. Those with online accounts tend to be younger and less educated and are more likely to be male and from the south.</p>
+    
+
+    <h2 class="text-lg text-white text-center font-raleway-700 pt-6">Click on the interactive chart below to see the demographic makeup of sports bettors with online accounts.</h2>
 
     <!-- @Hannah SECTION: Interactive Chart -->
-    <section class="mx-5 my-5">
-        <select class="text-white" id="chartType">
+    <section class="flex flex-col-reverse lg:flex-row mx-5 my-5">
+      <div class="flex w-full lg:w-1/2">
+        <!-- This is the viz div, where vega-lite will embed everything -->
+        <div id="vis" class="mx-auto"></div>
+      </div>
+      <div class="flex flex-col justify-center w-full lg:w-1/2">
+        <div class="h-3/4 mt-12 mx-40 lg:mx-10">
+          <h3 id="titleChartInfo" class="text-center text-white font-raleway-700 text-3xl">Gender Distribution</h3>
+          <p id="chartInfo" class="text-center text-white font-raleway-500 text-lg mt-3">The gender distribution of sports bettors is:<br> 65% male and 35% female.</p>
+        </div>
+        <div class="flex flex-col justify-center h-1/4 font-raleway-500 pb-5 lg:pb-0">
+          <h3 class="text-md text-white text-center font-raleway-700">Toggle this visual here!</h3>
+          <select class="text-white max-w-36 mx-auto mt-4 rounded-lg outline-2 outline-[#393f4f]" id="chartType">
             <option value="gender">Gender</option>
             <option value="race">Race</option>
             <option value="age">Age Group</option>
             <option value="region">Region</option>
             <option value = "education">Education</option>
-        </select>
-    
-        <div id="vis"></div>
-
-        <!-- Add the new popup div here -->
-        <div id="chartInfo" class="popup" style="display: none;"></div>
-    
+          </select>
+        </div>
+      </div>
     </section>
+
+    <!-- @Hawe SECTION: Data Driven Facts -->
     <h2>Bettors, would you say that you win more than you lose, lose more than you win, or that you usually break even?</h2>
     <div id="vis-1"></div>
     <script>
@@ -150,7 +161,7 @@
       <!-- TODO: Story -->
       <div class="relative w-full max-w-2xl mx-auto h-84" id="slideshow">
         <!-- Slides container -->
-        <div class="relative bg-white rounded-2xl shadow-lg overflow-hidden h-full">
+        <div class="relative bg-[#393f4f] rounded-2xl shadow-lg overflow-hidden h-full">
           <div class="slide-container">
             <div class="slide current">
               <div class="pt-16 px-12 items-center">
