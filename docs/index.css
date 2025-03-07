@@ -124,4 +124,21 @@ img {
   z-index: 1000;
 }
 
+/*styling for banner*/
+.banner {
+  background-color: #e5e5e5; /* Light gray background */
+  padding: 1em; /* Vertical padding */
+  text-align: center; /* Center text */
+}
+
+.banner a {
+  color: #3498db; /* Blue color for links */
+  text-decoration: none; /* Remove underline */
+}
+
+.banner a:hover {
+  color: #aaa5a6; /* Darker blue on hover */
+}
+
+
 
