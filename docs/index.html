@@ -169,8 +169,8 @@
         }
 
         Promise.all([
-            loadJsonFromFile("map.json"),
-            loadJsonFromFile("betting-data.json")
+            loadJsonFromFile("scripts/map.json"),
+            loadJsonFromFile("scripts/betting-data.json")
         ]).then(([mapData, data]) => {
             if (mapData && data) {
                 console.log('Map Data:', mapData);
