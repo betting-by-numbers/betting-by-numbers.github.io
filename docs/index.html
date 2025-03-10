@@ -82,58 +82,50 @@
     <h2>Bettors, would you say that you win more than you lose, lose more than you win, or that you usually break even?</h2>
     <div id="vis-1"></div>
     <script>
-            var vlSpec = {
-                "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-                "data": {
-                    "values": [
-                        {
-                        "Total Men": 1505,
-                        "Total Women": 1566,
-                        "Male Bettors": 354,
-                        "Female Bettors": 181,
-                        "Status": "Win More Than Lose",
-                        "Male": 139,
-                        "Female": 54
-                        },
-                        {
-                        "Total Men": 1505,
-                        "Total Women": 1566,
-                        "Male Bettors": 354,
-                        "Female Bettors": 181,
-                        "Status": "Lost More Than Win",
-                        "Male": 111,
-                        "Female": 50
-                        },
-                        {
-                        "Total Men": 1505,
-                        "Total Women": 1566,
-                        "Male Bettors": 354,
-                        "Female Bettors": 181,
-                        "Status": "Break Even",
-                        "Male": 104,
-                        "Female": 71
-                        }
-                    ]
-                },
-                "repeat": {"layer": ["Male", "Female"]},
-                "spec": {
-                    "mark": "bar",
-                    
-                    "encoding": {
-                        "x": {"field": "Status", "type": "nominal"},
-                        "y": {"field": {"repeat": "layer"}, "type": "quantitative", "title": "Number of Bettors"},
-                        "color": {"datum": {"repeat": "layer"}, "title": "Gender"},
-                        "xOffset": {"datum": {"repeat": "layer"}}
+        var vlSpec = {
+            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+            "width": 200,
+            "height": 400,
+            "data": {
+                "values": [
+                    {
+                    "Total Men": 1505,
+                    "Total Women": 1566,
+                    "Male Bettors": 354,
+                    "Female Bettors": 181,
+                    "Status": "Win More Than Lose",
+                    "% of Bettors": 36
+                    },
+                    {
+                    "Total Men": 1505,
+                    "Total Women": 1566,
+                    "Male Bettors": 354,
+                    "Female Bettors": 181,
+                    "Status": "Lost More Than Win",
+                    "% of Bettors": 30
+                    },
+                    {
+                    "Total Men": 1505,
+                    "Total Women": 1566,
+                    "Male Bettors": 354,
+                    "Female Bettors": 181,
+                    "Status": "Break Even",
+                    "% of Bettors": 33,
                     }
-                },
-                "config": {
-                    "mark": {"invalid": null}
-                }
-            };
-            vegaEmbed("#vis-1", vlSpec).catch(console.error);
+                ]
+            },
+            "mark": "bar",
+                
+            "encoding": {
+                "x": {"field": "Status", "type": "nominal"},
+                "y": {"field": "% of Bettors", "type": "quantitative", "title": "% of Bettors"}
+            }
+        };
+
+        vegaEmbed("#vis-1", vlSpec).catch(console.error);
     </script>
 
-    <!-- What: Q38 (largest amount won)-->
+
     <h2>Bettors, what is the largest amount you've ever won in a day?</h2>
     <div id="vis-2"></div>
     <script>
@@ -157,6 +149,197 @@
             }
         }
         vegaEmbed("#vis-2", vlSpec).catch(console.error);
+    </script>
+
+    <!-- BAREBONES NFL MAP... looking for more league data but difficult to come by-->
+
+    <div id="vis-4"></div>
+    <script> 
+        async function loadJsonFromFile(filePath) {
+            try {
+                const response = await fetch(filePath);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return await response.json();
+            } catch (error) {
+                console.error('Error loading JSON:', error);
+                return null;
+            }
+        }
+
+        Promise.all([
+            loadJsonFromFile("map.json"),
+            loadJsonFromFile("betting-data.json")
+        ]).then(([mapData, data]) => {
+            if (mapData && data) {
+                console.log('Map Data:', mapData);
+                console.log('Betting Data:', data);
+
+                var vlSpec = {
+                    "$schema": "https://vega.github.io/schema/vega/v5.json",
+                    "background": "white",
+                    "padding": 5,
+                    "width": 1200,
+                    "height": 650,
+                    "style": "view",
+                    "signals": [
+                        {
+                            "name": "tooltip",
+                            "value": {},
+                            "on": [
+                                {"events": "symbol:mouseover", "update": "datum"},
+                                {"events": "symbol:mouseout", "update": "{}"}
+                            ]
+                        }
+                    ],
+                    "data": [
+                        {
+                            "name": "source_0",
+                            "values": mapData,
+                            "format": {"type": "topojson", "feature": "states"}
+                        },
+                        {
+                            "name": "source_1",
+                            "values": data,
+                            "format": {"type": "json"},
+                            "transform": [
+                                {
+                                    "type": "geojson",
+                                    "fields": ["longitude", "latitude"],
+                                    "signal": "layer_1_geojson_0"
+                                },
+                                {
+                                    "type": "geopoint",
+                                    "projection": "projection",
+                                    "fields": ["longitude", "latitude"],
+                                    "as": ["layer_1_x", "layer_1_y"]
+                                }
+                            ]
+                        }
+                    ],
+                    "scales": [
+                        {
+                            "name": "sizeScale",
+                            "type": "linear",
+                            "domain": {"data": "source_1", "field": "bet"},
+                            "range": [10, 1000]
+                        }
+                    ],
+                    "projections": [
+                        {
+                            "name": "projection",
+                            "size": {"signal": "[width, height]"},
+                            "fit": {"signal": "[data('source_0'), layer_1_geojson_0]"},
+                            "type": "albersUsa"
+                        }
+                    ],
+                    "marks": [
+                        {
+                            "name": "layer_0_marks",
+                            "type": "shape",
+                            "style": ["geoshape"],
+                            "from": {"data": "source_0"},
+                            "encode": {
+                                "update": {
+                                    "fill": {"value": "lightgray"},
+                                    "stroke": {"value": "white"},
+                                    "ariaRoleDescription": {"value": "geoshape"}
+                                }
+                            },
+                            "transform": [{"type": "geoshape", "projection": "projection"}]
+                        },
+                        {
+                            "name": "layer_1_marks",
+                            "type": "symbol",
+                            "style": ["circle"],
+                            "from": {"data": "source_1"},
+                            "encode": {
+                                "update": {
+                                    "opacity": {"value": 0.7},
+                                    "fill": {"value": "steelblue"},
+                                    "ariaRoleDescription": {"value": "circle"},
+                                    "x": {"field": "layer_1_x"},
+                                    "y": {"field": "layer_1_y"},
+                                    "size": {"scale": "sizeScale", "field": "bet"},
+                                    "shape": {"value": "circle"}
+                                }
+                            }
+                        },
+                        {
+                            "type": "group",
+                            "encode": {
+                                "update": {
+                                    "x": {"signal": "tooltip.layer_1_x + 10"},
+                                    "y": {"signal": "tooltip.layer_1_y - 10"},
+                                    "width": {"value": 155},
+                                    "height": {"value": 55},
+                                    "fill": {"value": "white"},
+                                    "stroke": {"value": "black"},
+                                    "strokeWidth": {"value": 1},
+                                    "cornerRadius": {"value": 5},
+                                    "opacity": {"signal": "tooltip.latitude ? 1 : 0"}
+                                }
+                            },
+                            "marks": [
+                                {
+                                    "type": "text",
+                                    "encode": {
+                                        "update": {
+                                            "x": {"value": 5},
+                                            "y": {"value": 15},
+                                            "text": {"signal": "'🏈 ' + tooltip.team"},
+                                            "fill": {"value": "black"},
+                                            "fontSize": {"value": 11}
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "text",
+                                    "encode": {
+                                        "update": {
+                                            "x": {"value": 5},
+                                            "y": {"value": 37},
+                                            "text": {"signal": "'📍' + tooltip.city + ', ' + tooltip.state"},
+                                            "fill": {"value": "black"},
+                                            "fontSize": {"value": 8}
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "text",
+                                    "encode": {
+                                        "update": {
+                                            "x": {"value": 5},
+                                            "y": {"value": 26},
+                                            "text": {"signal": "'🏟️ ' + tooltip.stadium"},
+                                            "fill": {"value": "black"},
+                                            "fontSize": {"value": 8}
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "text",
+                                    "encode": {
+                                        "update": {
+                                            "x": {"value": 5},
+                                            "y": {"value": 48},
+                                            "text": {"signal": "'Avg Spend per Season: $' + tooltip.bet"},
+                                            "fill": {"value": "black"},
+                                            "fontSize": {"value": 9}
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                };
+
+                vegaEmbed("#vis-4", vlSpec).catch(console.error);
+            } else {
+                console.error('Failed to load map data or additional data.');
+            }
+        });
     </script>
 
     <!-- @Carlo SECTION: User Story -->
