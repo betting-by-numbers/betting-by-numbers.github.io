@@ -23,7 +23,12 @@
   <script src="scripts/story_slides.js" defer></script>
 
   <!-- Import Demographic Slides Logic -->
-   <script src="scripts/demographic_specs.js" defer></script>
+  <script src="scripts/demographic_specs.js" defer></script>
+
+  <!-- Import Graphs Logic -->
+  <script src="scripts/map.js" defer></script>
+  <script src="scripts/betting-data.js" defer></script>
+  <script src="scripts/graphs.js" defer></script>
 
   <!-- TODO: Update Title to Project Name -->
   <title>A Sports Betting Story</title>
@@ -47,8 +52,6 @@
     </div>
 
     <p class="text-lg text-white text-center font-raleway-500 pt-6">2023 data from St. Bonaventure and Siena Research indicate that nearly four in ten Americans bet on sporting events and one in five have an online account with a sports betting service such as DraftKings, Caesars, or FanDuel. Those with online accounts tend to be younger and less educated and are more likely to be male and from the south.</p>
-    
-
     <h2 class="text-lg text-white text-center font-raleway-700 pt-6">Click on the interactive chart below to see the demographic makeup of sports bettors with online accounts.</h2>
 
     <!-- @Hannah SECTION: Interactive Chart -->
@@ -75,272 +78,54 @@
       </div>
     </section>
 
+    <!-- Divider -->
+    <div class="row flex justify-center">
+      <div class="bg-white mt-10 mb-8 w-24 h-1 lg:h-2"></div>
+    </div>
+
     <!-- @Hawe SECTION: Data Driven Facts -->
     <p class="text-lg text-white text-center font-raleway-500 pt-6">
-      The data also show that men are more confident than women in their betting outcomes. For those with a sports betting account who have placed a bet, men are more likely than women to say that they win more than they lose in their bets. 
+      The data also show that men are more confident than women in their betting outcomes. For those with a sports betting account who have placed a bet, men are more likely than women to say that they win more than they lose on their bets. The following question was asked to respondents that actively sportsbet:
     </p>
-    <h2>Bettors, would you say that you win more than you lose, lose more than you win, or that you usually break even?</h2>
-    <div id="vis-1"></div>
-    <script>
-        var vlSpec = {
-            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-            "width": 200,
-            "height": 400,
-            "data": {
-                "values": [
-                    {
-                    "Total Men": 1505,
-                    "Total Women": 1566,
-                    "Male Bettors": 354,
-                    "Female Bettors": 181,
-                    "Status": "Win More Than Lose",
-                    "% of Bettors": 36
-                    },
-                    {
-                    "Total Men": 1505,
-                    "Total Women": 1566,
-                    "Male Bettors": 354,
-                    "Female Bettors": 181,
-                    "Status": "Lost More Than Win",
-                    "% of Bettors": 30
-                    },
-                    {
-                    "Total Men": 1505,
-                    "Total Women": 1566,
-                    "Male Bettors": 354,
-                    "Female Bettors": 181,
-                    "Status": "Break Even",
-                    "% of Bettors": 33,
-                    }
-                ]
-            },
-            "mark": "bar",
-                
-            "encoding": {
-                "x": {"field": "Status", "type": "nominal"},
-                "y": {"field": "% of Bettors", "type": "quantitative", "title": "% of Bettors"}
-            }
-        };
+    <div class="flex flex-col-reverse lg:flex-row justify-center w-full py-10">
+      <div class="flex w-full">
+        <div id="vis-1" class="mx-auto"></div>
+      </div>
+      <div class="flex flex-col justify-center w-full">
+        <h2 class="text-center text-white font-raleway-700 text-xl pb-5 lg:pb-8">"Bettors, would you say that you win more than you lose, lose more than you win, or that you usually break even?"</h2>
+        <p class="text-white text-center font-raleway-500 py-3 pb-8 lg:pb-3">The data in the chart show that, among those who actively sportsbet, men more often claimed that they had "won more than they lost" in betting, while women more often claimed that they had "broken even".</p>
+      </div>
+    </div>
 
-        vegaEmbed("#vis-1", vlSpec).catch(console.error);
-    </script>
+    <!-- Divider -->
+    <div class="row flex justify-center">
+      <div class="bg-white mt-10 mb-8 w-24 h-1 lg:h-2"></div>
+    </div>
 
+    <p class="text-lg text-white text-center font-raleway-500 pt-6">
+      Further, most sports bettors win modest amounts when they land their bets. Nearly sixty percent of survey respondents said their biggest single-day win on an online sportsbook was under $200, while only 8% reported winning $1,000 or more. The following question was asked to respondents that actively sportsbet:
+    </p>
 
-    <h2>Bettors, what is the largest amount you've ever won in a day?</h2>
-    <div id="vis-2"></div>
-    <script>
-        var vlSpec = {
-            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-            "data": {
-                "values": [
-                    {"Amount Won": "No More Than $50", "value": 20},
-                    {"Amount Won": "$50-$99.99", "value": 18},
-                    {"Amount Won": "$100-$199.99", "value": 20},
-                    {"Amount Won": "$200-$499.99", "value": 21},
-                    {"Amount Won": "$500-$999.99", "value": 12},
-                    {"Amount Won": "$1000+", "value": 8},
-                    {"Amount Won": "Don't Know or Refused", "value": 1}
-                ]
-            },
-            "mark": {"type": "arc", "tooltip": true},
-            "encoding": {
-                "theta": {"field": "value", "type": "quantitative", "stack": "normalize"},
-                "color": {"field": "Amount Won", "type": "nominal", "sort": null},
-            }
-        }
-        vegaEmbed("#vis-2", vlSpec).catch(console.error);
-    </script>
+    <div class="flex flex-col-reverse lg:flex-row justify-center w-full py-10">
+      <div class="flex w-full">
+        <div id="vis-2" class="mx-auto pt-5"></div>
+      </div>
+      <div class="flex flex-col justify-center w-full">
+        <h2 class="text-center text-white font-raleway-700 text-xl pb-5 lg:pb-8">"Bettors, what is the largest amount you've ever won in a day?"</h2>
+        <p class="text-white text-center font-raleway-500 py-3 pb-8 lg:pb-3">The data shows that big wins tend to be modest in size. Nearly 60% of big winners only reported a win value of under $200. It is rare to hit it big on a single sportsbet, with only 8% winning over $1000.</p>
+      </div>
+    </div>
 
-    <!-- BAREBONES NFL MAP... looking for more league data but difficult to come by-->
+    <!-- Divider -->
+    <div class="row flex justify-center">
+      <div class="bg-white mt-10 mb-8 w-24 h-1 lg:h-2"></div>
+    </div>
 
-    <div id="vis-4"></div>
-    <script> 
-        async function loadJsonFromFile(filePath) {
-            try {
-                const response = await fetch(filePath);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return await response.json();
-            } catch (error) {
-                console.error('Error loading JSON:', error);
-                return null;
-            }
-        }
+    <p class="text-lg text-white text-center font-raleway-500 pt-6">
+      The rapid growth of sports betting has raised concerns about gambling addiction. Research published in JAMA Internal Medicine indicates that sports gambling wagers surged from $4.9 billion in 2017 to $121 billion in 2023, leading to a 23% rise in online searches for gambling addiction help.
+    </p>
 
-        Promise.all([
-            loadJsonFromFile("scripts/map.json"),
-            loadJsonFromFile("scripts/betting-data.json")
-        ]).then(([mapData, data]) => {
-            if (mapData && data) {
-                console.log('Map Data:', mapData);
-                console.log('Betting Data:', data);
-
-                var vlSpec = {
-                    "$schema": "https://vega.github.io/schema/vega/v5.json",
-                    "background": "white",
-                    "padding": 5,
-                    "width": 1200,
-                    "height": 650,
-                    "style": "view",
-                    "signals": [
-                        {
-                            "name": "tooltip",
-                            "value": {},
-                            "on": [
-                                {"events": "symbol:mouseover", "update": "datum"},
-                                {"events": "symbol:mouseout", "update": "{}"}
-                            ]
-                        }
-                    ],
-                    "data": [
-                        {
-                            "name": "source_0",
-                            "values": mapData,
-                            "format": {"type": "topojson", "feature": "states"}
-                        },
-                        {
-                            "name": "source_1",
-                            "values": data,
-                            "format": {"type": "json"},
-                            "transform": [
-                                {
-                                    "type": "geojson",
-                                    "fields": ["longitude", "latitude"],
-                                    "signal": "layer_1_geojson_0"
-                                },
-                                {
-                                    "type": "geopoint",
-                                    "projection": "projection",
-                                    "fields": ["longitude", "latitude"],
-                                    "as": ["layer_1_x", "layer_1_y"]
-                                }
-                            ]
-                        }
-                    ],
-                    "scales": [
-                        {
-                            "name": "sizeScale",
-                            "type": "linear",
-                            "domain": {"data": "source_1", "field": "bet"},
-                            "range": [10, 1000]
-                        }
-                    ],
-                    "projections": [
-                        {
-                            "name": "projection",
-                            "size": {"signal": "[width, height]"},
-                            "fit": {"signal": "[data('source_0'), layer_1_geojson_0]"},
-                            "type": "albersUsa"
-                        }
-                    ],
-                    "marks": [
-                        {
-                            "name": "layer_0_marks",
-                            "type": "shape",
-                            "style": ["geoshape"],
-                            "from": {"data": "source_0"},
-                            "encode": {
-                                "update": {
-                                    "fill": {"value": "lightgray"},
-                                    "stroke": {"value": "white"},
-                                    "ariaRoleDescription": {"value": "geoshape"}
-                                }
-                            },
-                            "transform": [{"type": "geoshape", "projection": "projection"}]
-                        },
-                        {
-                            "name": "layer_1_marks",
-                            "type": "symbol",
-                            "style": ["circle"],
-                            "from": {"data": "source_1"},
-                            "encode": {
-                                "update": {
-                                    "opacity": {"value": 0.7},
-                                    "fill": {"value": "steelblue"},
-                                    "ariaRoleDescription": {"value": "circle"},
-                                    "x": {"field": "layer_1_x"},
-                                    "y": {"field": "layer_1_y"},
-                                    "size": {"scale": "sizeScale", "field": "bet"},
-                                    "shape": {"value": "circle"}
-                                }
-                            }
-                        },
-                        {
-                            "type": "group",
-                            "encode": {
-                                "update": {
-                                    "x": {"signal": "tooltip.layer_1_x + 10"},
-                                    "y": {"signal": "tooltip.layer_1_y - 10"},
-                                    "width": {"value": 155},
-                                    "height": {"value": 55},
-                                    "fill": {"value": "white"},
-                                    "stroke": {"value": "black"},
-                                    "strokeWidth": {"value": 1},
-                                    "cornerRadius": {"value": 5},
-                                    "opacity": {"signal": "tooltip.latitude ? 1 : 0"}
-                                }
-                            },
-                            "marks": [
-                                {
-                                    "type": "text",
-                                    "encode": {
-                                        "update": {
-                                            "x": {"value": 5},
-                                            "y": {"value": 15},
-                                            "text": {"signal": "'🏈 ' + tooltip.team"},
-                                            "fill": {"value": "black"},
-                                            "fontSize": {"value": 11}
-                                        }
-                                    }
-                                },
-                                {
-                                    "type": "text",
-                                    "encode": {
-                                        "update": {
-                                            "x": {"value": 5},
-                                            "y": {"value": 37},
-                                            "text": {"signal": "'📍' + tooltip.city + ', ' + tooltip.state"},
-                                            "fill": {"value": "black"},
-                                            "fontSize": {"value": 8}
-                                        }
-                                    }
-                                },
-                                {
-                                    "type": "text",
-                                    "encode": {
-                                        "update": {
-                                            "x": {"value": 5},
-                                            "y": {"value": 26},
-                                            "text": {"signal": "'🏟️ ' + tooltip.stadium"},
-                                            "fill": {"value": "black"},
-                                            "fontSize": {"value": 8}
-                                        }
-                                    }
-                                },
-                                {
-                                    "type": "text",
-                                    "encode": {
-                                        "update": {
-                                            "x": {"value": 5},
-                                            "y": {"value": 48},
-                                            "text": {"signal": "'Avg Spend per Season: $' + tooltip.bet"},
-                                            "fill": {"value": "black"},
-                                            "fontSize": {"value": 9}
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                };
-
-                vegaEmbed("#vis-4", vlSpec).catch(console.error);
-            } else {
-                console.error('Failed to load map data or additional data.');
-            }
-        });
-    </script>
+    <h2 class="text-lg text-white text-center font-raleway-700 pt-6">Click through the story slides below to learn about one individual slid into addiction. </p>
 
     <!-- @Carlo SECTION: User Story -->
     <section class="mx-5 my-5">
@@ -351,8 +136,8 @@
           <div class="slide-container">
             <div class="slide current">
               <div class="pt-16 px-12 items-center">
-                <h2 class="text-2xl font-bold mb-4 text-center font-bold">A Sportsbetting Story</h2>
-                <p class="text-gray-500 text-center italic">How harmless little bets can spiral into a debt-filled nightmare.</p>
+                <h2 class="text-4xl font-bold mb-4 text-center font-raleway-700">A Sportsbetting Story</h2>
+                <p class="text-gray-400 text-center italic">How harmless little bets can spiral into a debt-filled nightmare.</p>
                 <div class="flex justify-center pt-8">
                   <button onclick="moveSlide(1)" class="bg-green-600 hover:bg-green-700 cursor-pointer rounded-xl min-w-24 min-h-12 text-white">Start</button>
                 </div>    
@@ -365,29 +150,29 @@
                 </div>
                 <div class="h-100">
                   <h2 class="text-xl font-bold mb-4">A Home in Arizona.</h2>
-                  <p class="text-gray-600 text-sm">Jordan Holt is a citizen of Arizona. Like many Americans, he had sworn off from gambling— until the casino showed up to his living room.</p>
+                  <p class="text-gray-400 text-sm">Jordan Holt is a citizen of Arizona. Like many Americans, he had sworn off from gambling— until the casino showed up to his living room.</p>
                 </div>
               </div>
             </div>
             <div class="slide next">
               <div class="columns-2 p-8 px-12">
                 <div class="h-100">
-                  <img class="rounded-lg mx-auto aspect-square" src="images/robert-murray-9-WVTrFrlWI-unsplash.jpg" alt="Arizona desert with sunset" width="250">
+                  <img class="rounded-lg mx-auto aspect-square" src="images/ian-hutchinson-U8WfiRpsQ7Y-unsplash.jpg" alt="Supreme Court at golden hour" width="250">
                 </div>
                 <div class="h-100">
                   <h2 class="text-xl font-bold mb-4">The Supreme Court Rules.</h2>
-                  <p class="text-gray-600 text-sm">In 2018, the Supreme Court had overturned a long-standing federal law that prohibited commercial sports betting. With this ruling, sports betting had not only been broken free from the legal chains tying it down to Las Vegas and overseas black markets, but it now comfortably resides within accessible smartphone applications all across the United States.</p>
+                  <p class="text-gray-400 text-sm">In 2018, the Supreme Court had overturned a long-standing federal law that prohibited commercial sports betting. With this ruling, sports betting had not only been broken free from the legal chains tying it down to Las Vegas and overseas black markets, but it now comfortably resides within accessible smartphone applications all across the United States.</p>
                 </div>
               </div>
             </div>
             <div class="slide next">
               <div class="columns-2 p-8 px-12">
                 <div class="h-100">
-                  <img class="rounded-lg mx-auto aspect-square" src="images/robert-murray-9-WVTrFrlWI-unsplash.jpg" alt="Arizona desert with sunset" width="250">
+                  <img class="rounded-lg mx-auto aspect-square" src="images/stephanie-harvey-PPA6wsuedeM-unsplash.jpg" alt="Photo of a brown couch with a throw blanket on top of it" width="250">
                 </div>
                 <div class="h-100">
                   <h2 class="text-xl font-bold mb-4">Couch Gambling</h2>
-                  <p class="text-gray-600 text-sm">Jordan Holt had a history of excessive gambling, so he knew to avoid these flashy new apps at all costs. But this alone was a Herculean task. The stressors of his gambling friends
+                  <p class="text-gray-400 text-sm">Jordan Holt had a history of excessive gambling, so he knew to avoid these flashy new apps at all costs. But this alone was a Herculean task. The stressors of his gambling friends
                     and online sportsbooks advertising made sports betting nearly impossible to avoid—and then one day, he caved in.                    
                   </p>
                 </div>
@@ -396,55 +181,55 @@
             <div class="slide next">
               <div class="columns-2 p-8 px-12">
                 <div class="h-100">
-                  <img class="rounded-lg mx-auto aspect-square" src="images/robert-murray-9-WVTrFrlWI-unsplash.jpg" alt="Arizona desert with sunset" width="250">
+                  <img class="rounded-lg mx-auto aspect-square" src="images/viacheslav-bublyk-6WXbPWhT8c8-unsplash.jpg" alt="Photo of a stack of hundred dollar bills in one's hand" width="250">
                 </div>
                 <div class="h-100">
                   <h2 class="text-xl font-bold mb-4">Beginner's Luck?</h2>
-                  <p class="text-gray-600 text-sm">It started off with small, occasional weekend bets—but those bets kept creeping upwards. $10 bets became $20.. $40.. all culminating in a huge $100 under bet on a Japanese vs. Korean Women’s basketball game—and he won.</p>
+                  <p class="text-gray-400 text-sm">It started off with small, occasional weekend bets—but those bets kept creeping upwards. $10 bets became $20.. $40.. all culminating in a huge $100 under bet on a Japanese vs. Korean Women’s basketball game—and he won.</p>
                 </div>
               </div>
             </div>
             <div class="slide next">
               <div class="columns-2 p-8 px-12">
                 <div class="h-100">
-                  <img class="rounded-lg mx-auto aspect-square" src="images/robert-murray-9-WVTrFrlWI-unsplash.jpg" alt="Arizona desert with sunset" width="250">
+                  <img class="rounded-lg mx-auto aspect-square" src="images/mackenzie-marco-XG88BYDSDZA-unsplash.jpg" alt="Photo of a money pile" width="250">
                 </div>
                 <div class="h-100">
                   <h2 class="text-xl font-bold mb-4">Impeccable Earnings</h2>
-                  <p class="text-gray-600 text-sm">Holt’s sportsbetting hobby evolved into an income stream. Like clockwork, Holt under bet international women’s basketball games and saw the money come in. In one weekend, Holt won $1000. The income led him to dreams of home renovations and surprising his family with football tickets. All losses were outweighed by his consistent winning bets—he felt unstoppable…</p>
+                  <p class="text-gray-400 text-sm">Holt’s sportsbetting hobby evolved into an income stream. Like clockwork, Holt under bet international women’s basketball games and saw the money come in. In one weekend, Holt won $1000. The income led him to dreams of home renovations and surprising his family with football tickets. All losses were outweighed by his consistent winning bets—he felt unstoppable…</p>
                 </div>
               </div>
             </div>
             <div class="slide next">
               <div class="columns-2 p-8 px-12">
                 <div class="h-100">
-                  <img class="rounded-lg mx-auto aspect-square" src="images/robert-murray-9-WVTrFrlWI-unsplash.jpg" alt="Arizona desert with sunset" width="250">
+                  <img class="rounded-lg mx-auto aspect-square" src="images/maxim-hopman-fiXLQXAhCfk-unsplash.jpg" alt="Photo of line chart in the red, decreasing" width="250">
                 </div>
                 <div class="h-100">
                   <h2 class="text-xl font-bold mb-4">The Luck Dries Up</h2>
-                  <p class="text-gray-600 text-sm">…until the bets dried up. The stream of wins quickly morphed into landslide losses. Efforts to double future bets to cover previous losses did not save Holt. $100 losses were followed by $200 losses—Holt even lost $1000 in a single  day in a failed bet. Holt’s dreams of football tickets and home renovations were quickly replaced with digging himself out of this hole.</p>
+                  <p class="text-gray-400 text-sm">…until the bets dried up. The stream of wins quickly morphed into landslide losses. Efforts to double future bets to cover previous losses did not save Holt. $100 losses were followed by $200 losses—Holt even lost $1000 in a single  day in a failed bet. Holt’s dreams of football tickets and home renovations were quickly replaced with digging himself out of this hole.</p>
                 </div>
               </div>
             </div>
             <div class="slide next">
               <div class="columns-2 p-8 px-12">
                 <div class="h-100">
-                  <img class="rounded-lg mx-auto aspect-square" src="images/robert-murray-9-WVTrFrlWI-unsplash.jpg" alt="Arizona desert with sunset" width="250">
+                  <img class="rounded-lg mx-auto aspect-square" src="images/daniel-thomas-WmsFE6YhYIM-unsplash.jpg" alt="Photo of a 'Money to Loan' sign on the side of a building" width="250">
                 </div>
                 <div class="h-100">
                   <h2 class="text-xl font-bold mb-4">Loans, loans, loans.</h2>
-                  <p class="text-gray-600 text-sm">Holt turned to the banks. If he could get loan money for bets, he could make it all back. No one would know, Holt though. He just needed a bet to stick. Mortgages, auto loans, and vast sums of money were taken from the banks into his sports betting app. The losses were huge—$5,000... $10,000... and soon, Holt found himself $50,000 in the red.</p>
+                  <p class="text-gray-400 text-sm">Holt turned to the banks. If he could get loan money for bets, he could make it all back. No one would know, Holt though. He just needed a bet to stick. Mortgages, auto loans, and vast sums of money were taken from the banks into his sports betting app. The losses were huge—$5,000... $10,000... and soon, Holt found himself $50,000 in the red.</p>
                 </div>
               </div>
             </div>
             <div class="slide next">
               <div class="columns-2 p-8 px-12">
                 <div class="h-100">
-                  <img class="rounded-lg mx-auto aspect-square" src="images/robert-murray-9-WVTrFrlWI-unsplash.jpg" alt="Arizona desert with sunset" width="250">
+                  <img class="rounded-lg mx-auto aspect-square" src="images/micheile-henderson-SoT4-mZhyhE-unsplash.jpg" alt="Photo of a plant growing out of a pot full of money" width="250">
                 </div>
                 <div class="h-100">
                   <h2 class="text-xl font-bold mb-4">A Steady Recovery</h2>
-                  <p class="text-gray-600 text-sm">Today, Holt is building back his financial well-being slowly and carefully. He is meaningfully paying down the debts and has his loving family supporting him at every step. He knows that he can only blame himself for his actions, but can’t help his disdain for these sportsbetting apps for enabling (and profiting) off of his reckless behavior.</p>
+                  <p class="text-gray-400 text-sm">Today, Holt is building back his financial well-being slowly and carefully. He is meaningfully paying down the debts and has his loving family supporting him at every step. He knows that he can only blame himself for his actions, but can’t help his disdain for these sportsbetting apps for enabling (and profiting) off of his reckless behavior.</p>
                 </div>
               </div>
             </div>
@@ -455,7 +240,7 @@
                 </div>
                 <div class="h-100">
                   <h2 class="text-xl font-bold mb-4">To be continued..</h2>
-                  <p class="text-gray-600 text-sm">To read Holt’s full story, please read the full article on The Athletic <a class="text-blue-500 underline hover:text-blue-700" href="https://www.nytimes.com/athletic/5777632/2024/10/14/sports-betting-addiction-problem-fans/">here.</a></p>
+                  <p class="text-gray-400 text-sm">To read Holt’s full story, please read the full article on The Athletic <a class="text-blue-500 underline hover:text-blue-700" href="https://www.nytimes.com/athletic/5777632/2024/10/14/sports-betting-addiction-problem-fans/">here.</a></p>
                 </div>
               </div>
             </div>
@@ -493,13 +278,21 @@
 
     </section>
 
+    <!-- Divider -->
+    <div class="row flex justify-center">
+      <div class="bg-white mt-10 mb-8 w-24 h-1 lg:h-2"></div>
+    </div>
+
+    <!-- Hawe: BAREBONES NFL MAP... looking for more league data but difficult to come by-->
+    <p class="text-lg text-white text-center font-raleway-500 pt-6">Let's see how these numbers play out. Below, we have mapped out the major NFL teams in the US and how much the average bet on each of them is in a season. Each team is marked by a circle on the location of their home stadium.</p>
+    <h2 class="text-lg text-white text-center font-raleway-700 pt-6">Hover on the interactive map below and see the statistics in action!</h2>
+    <div class="w-full flex justify-center py-5 overflow-visible">
+      <div id="vis-4"></div>
+    </div>
+    
+
   </main>
 
-  <!-- FOOTER: TBD -->
-  <footer class="index-footer mx-auto">
-    
-  </footer>
-  
   <!-- Story Slide JS Code -->
   <script>
     // Global: Track slide elements in the DOM
@@ -508,17 +301,20 @@
     const slideIndicators = document.querySelector('#slide-indicators');
     const slideButtonLeft = document.querySelector('#slide-button-left');
     const slideButtonRight = document.querySelector('#slide-button-right');
+
+    const backgroundColorHex = "#0b1121";
   </script>
 
   <!-- Footer Section -->
-  <p class="text-md text-white text-center font-raleway-700">Copyright @ Team Rubber Duckies 2025</p>
-  <footer class="pt-4 pb-8 flex justify-center">
+  <footer class="pt-4 pb-4 flex justify-center">
     <a href="about.html" class="text-white hover:text-gray-300 font-raleway-500">About</a>
     <p class="font-raleway-500 text-white px-5"> || </p>
     <a href="https://www.ncpgambling.org/problem-gambling/helpline-modernization/" rel="nooperner" target="_blank" class="text-white hover:text-gray-300 font-raleway-500">Sports Gambling Addiction Resources</a>
     <p class="font-raleway-500 text-white px-5"> || </p>
-    <a href="about.html" class="text-white hover:text-gray-300 font-raleway-500">Data</a>
-  </div>
+    <a href="https://www.sbu.edu/news/news-items/2024/02/05/st.-bonaventure-siena-research-survey-reveals-almost-1-in-5-americans-have-an-online-sports-betting-account" rel="nooperner" target="_blank" class="text-white hover:text-gray-300 font-raleway-500">Data</a>
+  </footer>
+
+  <p class="text-md text-white text-center font-raleway-700 pb-8">Copyright @ Team Rubber Duckies 2025</p>
 
 </body>
 </html>

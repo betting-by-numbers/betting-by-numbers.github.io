@@ -1,4 +1,4 @@
-[
+var data = [
     {"league": "NFL",
     "team": "Seattle Seahawks",
     "stadium": "Lumen Field",

@@ -8,7 +8,6 @@
 // Shared States
 const legendSymbolSize = 70;
 const symbolSize = 50;
-const backgroundColorHex = "#0b1121";
 
 const demographicVizTitle = {
     "font": "Arial",

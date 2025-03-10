@@ -140,5 +140,20 @@ img {
   color: #aaa5a6; /* Darker blue on hover */
 }
 
+.vega-embed {
+  position: relative;
+  overflow: visible !important;
+}
 
+.vega-embed .mark-group {
+  overflow: visible !important;
+}
+
+.vega-embed svg {
+  overflow: visible !important;
+}
+
+#vis-4 {
+  overflow: visible !important;
+}
 
