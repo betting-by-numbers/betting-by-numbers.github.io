@@ -1,78 +1,197 @@
-var vlSpec = {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "background": backgroundColorHex,
-  "width": 150,
-  "height": 250,
-  "data": {
-      "values": [
-          {
-          "Total Men": 1505,
-          "Total Women": 1566,
-          "Male Bettors": 354,
-          "Female Bettors": 181,
-          "Status": "Lost More Than Win",
-          "Male": 31,
-          "Female": 27,
-          },
-          {
-          "Total Men": 1505,
-          "Total Women": 1566,
-          "Male Bettors": 354,
-          "Female Bettors": 181,
-          "Status": "Break Even",
-          "Male": 29,
-          "Female": 39,
-          },
-          {
-          "Total Men": 1505,
-          "Total Women": 1566,
-          "Male Bettors": 354,
-          "Female Bettors": 181,
-          "Status": "Won More Than Lost",
-          "Male": 39,
-          "Female": 30,
-          },
+// var vlSpec = {
+//   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+//   "background": backgroundColorHex,
+//   "width": 150,
+//   "height": 250,
+//   "data": {
+//       "values": [
+//           {
+//           "Total Men": 1505,
+//           "Total Women": 1566,
+//           "Male Bettors": 354,
+//           "Female Bettors": 181,
+//           "Status": "Lost More Than Win",
+//           "Male": 31,
+//           "Female": 27,
+//           },
+//           {
+//           "Total Men": 1505,
+//           "Total Women": 1566,
+//           "Male Bettors": 354,
+//           "Female Bettors": 181,
+//           "Status": "Break Even",
+//           "Male": 29,
+//           "Female": 39,
+//           },
+//           {
+//           "Total Men": 1505,
+//           "Total Women": 1566,
+//           "Male Bettors": 354,
+//           "Female Bettors": 181,
+//           "Status": "Won More Than Lost",
+//           "Male": 39,
+//           "Female": 30,
+//           },
           
-      ]
-  },
-  "repeat": {"layer": ["Male", "Female"]},
-  "spec": {
-      "mark": {
-        "type": "bar",
-        "clip": true,
-      },
+//       ]
+//   },
+//   "repeat": {"layer": ["Male", "Female"]},
+//   "spec": {
+//       "mark": {
+//         "type": "bar",
+//         "clip": true,
+//       },
       
-      "encoding": {
-          "x": {"field": "Status", "type": "nominal", "title": null},
-          "y": {"field": {"repeat": "layer"}, "type": "quantitative", "title": "% of Bettors", "scale": {"domain": [20,47]}},
-          "color": {
-            "datum": {"repeat": "layer"}, 
-            "title": "Gender", 
-            "scale": {"domain": ["Male", "Female"], "range": ["#4D7EA8", "#ED6A5A"]}
-          },
-          "xOffset": {"datum": {"repeat": "layer"}},
-      }
-  },
-  "config": {
-    "mark": {"invalid": null},
-    "axis": {
-      "labelColor": "#FFFFFF",
-      "titleColor": "#FFFFFF",
-      "domainWidth": 3,
-      "gridWidth": 0.5,
-      "tickWidth": 3
-    },
-    "legend": {
-      "labelColor": "#FFFFFF",
-      "titleColor": "#FFFFFF"
-    },
-    "title": {
-      "color": "#FFFFFF"
-    }
-  }
-};
-vegaEmbed("#vis-1", vlSpec).catch(console.error);
+//       "encoding": {
+//           "x": {"field": "Status", "type": "nominal", "title": null},
+//           "y": {"field": {"repeat": "layer"}, "type": "quantitative", "title": "% of Bettors", "scale": {"domain": [20,47]}},
+//           "color": {
+//             "datum": {"repeat": "layer"}, 
+//             "title": "Gender", 
+//             "scale": {"domain": ["Male", "Female"], "range": ["#4D7EA8", "#ED6A5A"]}
+//           },
+//           "xOffset": {"datum": {"repeat": "layer"}},
+//       }
+//   },
+//   "config": {
+//     "mark": {"invalid": null},
+//     "axis": {
+//       "labelColor": "#FFFFFF",
+//       "titleColor": "#FFFFFF",
+//       "domainWidth": 3,
+//       "gridWidth": 0.5,
+//       "tickWidth": 3
+//     },
+//     "legend": {
+//       "labelColor": "#FFFFFF",
+//       "titleColor": "#FFFFFF"
+//     },
+//     "title": {
+//       "color": "#FFFFFF"
+//     }
+//   }
+// };
+// vegaEmbed("#vis-1", vlSpec).catch(console.error);
 
+var vlSpec = {
+            "$schema": "https://vega.github.io/schema/vega/v5.json",
+            "description": "A basic grouped bar chart example.",
+            "width": 300,
+            "height": 240,
+            "padding": 5,
+
+            "data": [
+                {
+                "name": "table",
+                "values": [
+                    {"category":"Break Even", "position":0, "value":31},
+                    {"category":"Break Even", "position":1, "value":27},
+                    {"category":"Win More", "position":0, "value":29},
+                    {"category":"Win More", "position":1, "value":39},
+                    {"category":"Lose More", "position":0, "value":39},
+                    {"category":"Lose More", "position":1, "value":30}
+                ]
+                }
+            ],
+
+        "scales": [
+        {
+        "name": "yscale",
+        "type": "band",
+        "domain": {"data": "table", "field": "category"},
+        "range": "height",
+        "padding": 0.2
+        },
+        {
+        "name": "xscale",
+        "type": "linear",
+        "domain": {"data": "table", "field": "value"},
+        "range": "width",
+        "round": true,
+        "zero": true,
+        "nice": true
+        },
+        {
+        "name": "color",
+        "type": "ordinal",
+        "domain": {"data": "table", "field": "position"},
+        "range": {"scheme": "category20"}
+        }
+        ],
+
+        "axes": [
+        {"orient": "left", "scale": "yscale", "tickSize": 0, "labelPadding": 4, "zindex": 1},
+        {"orient": "bottom", "scale": "xscale"}
+        ],
+
+        "marks": [
+        {
+        "type": "group",
+
+        "from": {
+        "facet": {
+        "data": "table",
+        "name": "facet",
+        "groupby": "category"
+        }
+        },
+
+        "encode": {
+        "enter": {
+        "y": {"scale": "yscale", "field": "category"}
+        }
+        },
+
+        "signals": [
+        {"name": "height", "update": "bandwidth('yscale')"}
+        ],
+
+        "scales": [
+        {
+        "name": "pos",
+        "type": "band",
+        "range": "height",
+        "domain": {"data": "facet", "field": "position"}
+        }
+        ],
+
+        "marks": [
+        {
+        "name": "bars",
+        "from": {"data": "facet"},
+        "type": "rect",
+        "encode": {
+            "enter": {
+            "y": {"scale": "pos", "field": "position"},
+            "height": {"scale": "pos", "band": 1},
+            "x": {"scale": "xscale", "field": "value"},
+            "x2": {"scale": "xscale", "value": 0},
+            "fill": {"scale": "color", "field": "position"}
+            }
+        }
+        },
+        {
+        "type": "text",
+        "from": {"data": "bars"},
+        "encode": {
+            "enter": {
+            "x": {"field": "x2", "offset": -5},
+            "y": {"field": "y", "offset": {"field": "height", "mult": 0.5}},
+            "fill": [
+                {"test": "contrast('white', datum.fill) > contrast('black', datum.fill)", "value": "white"},
+                {"value": "black"}
+            ],
+            "align": {"value": "right"},
+            "baseline": {"value": "middle"},
+            "text": {"field": "datum.value"}
+            }
+        }
+        }
+        ]
+        }
+    ]
+}
+vegaEmbed("#vis-1", vlSpec).catch(console.error);
 
 var vlSpec = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
@@ -117,7 +236,7 @@ var vlSpec = {
       "color": "#FFFFFF"
     }
   }
-}
+};
 vegaEmbed("#vis-2", vlSpec).catch(console.error);
 
 if (mapData && data) {
